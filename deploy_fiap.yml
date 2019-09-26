@@ -3,12 +3,11 @@ kind: Deployment
 metadata:
   name: fiapslackpage
 spec:
-  replicas: 1
+  replicas: 5
   template:
     metadata:
       labels:
         app: fiapslackpage
-        track: stable
     spec:
       containers:
         - name: fiapslackpage
