@@ -3,6 +3,7 @@
 Download dos arquivos que serão usados para fazer o Deployment no K8S e criar o serviço do tipo NodePort (usaremos no minikube)
 
 > https://github.com/tonanuvem/k8s-slackpage.git
+
 > cd k8s-slackpage
 
 Editar o arquivo deploy_fiap.yml para apontar para a imagem publicada na 1a aula (verificar em http://hub.docker.com)
