@@ -1,6 +1,6 @@
 # k8s-slackpage
 
-PARTE 1:
+<b>PARTE 1:</b>
 
 Download dos arquivos que serão usados para fazer o Deployment no K8S e criar o serviço do tipo NodePort (usaremos no minikube)
 
@@ -33,7 +33,7 @@ Abrir a página e testar
 
 <hr>
 
-PARTE 2:
+<b>PARTE 2:</b>
 
 Realizando um deploy (Rolling Update) on the fly...
 
@@ -57,7 +57,7 @@ Realizar o rollback:
 
 <hr>
 
-EXTRA:
+<i>EXTRA:</i>
 
 
 Para verificar o significado dos campos no manifesto dos recursos K8S, pode-se usar o comando : kubectl explain
