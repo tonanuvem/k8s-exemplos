@@ -40,7 +40,7 @@ Exemplos:
 
 > kubectl explain deployment.spec
 
-> kubectl explain deployment.spec.template
+> kubectl explain deployment.spec.replicas
 
 > kubectl explain deployment.spec.template.spec
 
