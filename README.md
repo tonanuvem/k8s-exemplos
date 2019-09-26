@@ -63,3 +63,7 @@ Usar a imagem publicada pelo Vizinho
 > DE :    &nbsp;&nbsp;&nbsp;&nbsp;      image: "tonanuvem/fiap_slackpage"
 
 > PARA:   &nbsp;&nbsp;&nbsp;&nbsp;      image: "USUARIO_VIZINHO/fiap_slackpage"
+
+Verificar a nova versão do Deployment que foi gerada, possibilitando um fácil rollback:
+
+> kubectl rollout history deployment/fiapslackpage
