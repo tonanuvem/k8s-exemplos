@@ -55,6 +55,10 @@ Realizar o rollback:
 
 > kubectl rollout undo deployment/fiapslackpage
 
+Verificar novamente o histórico:
+
+> kubectl rollout history deployment/fiapslackpage
+
 <hr>
 
 <i>EXTRA:</i>
