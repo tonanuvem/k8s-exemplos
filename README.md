@@ -26,4 +26,4 @@ Verificar quais recursos foram criados:
 
 Abrir a página e testar
 
-> minikube service
+> minikube service fiapslackpage
