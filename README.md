@@ -47,3 +47,11 @@ Exemplos:
 > kubectl explain deployment.spec.template.spec.containers
 
 > kubectl explain deployment.spec.template.spec.containers.image
+
+
+
+<hr>
+  
+Realizando um 
+  
+> kubectl edit deployment fiapslackpage
