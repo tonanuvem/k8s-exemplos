@@ -1,5 +1,7 @@
 # k8s-slackpage
 
+PARTE 1:
+
 Download dos arquivos que serão usados para fazer o Deployment no K8S e criar o serviço do tipo NodePort (usaremos no minikube)
 
 > git clone https://github.com/tonanuvem/k8s-slackpage.git
@@ -29,6 +31,34 @@ Abrir a página e testar
 > minikube service fiapslackpage
 
 
+<hr>
+
+PARTE 2:
+
+Realizando um deploy (Rolling Update) on the fly...
+
+Editar o Deploy:
+  
+> kubectl edit deployment fiapslackpage
+
+Usar a imagem publicada pelo Vizinho
+
+> DE :    &nbsp;&nbsp;&nbsp;&nbsp;      image: "tonanuvem/fiap_slackpage"
+
+> PARA:   &nbsp;&nbsp;&nbsp;&nbsp;      image: "USUARIO_VIZINHO/fiap_slackpage"
+
+Verificar a nova versão do Deployment que foi gerada, possibilitando um fácil rollback:
+
+> kubectl rollout history deployment/fiapslackpage
+
+Realizar o rollback:
+
+> kubectl rollout undo deployment/fiapslackpage
+
+<hr>
+
+EXTRA:
+
 
 Para verificar o significado dos campos no manifesto dos recursos K8S, pode-se usar o comando : kubectl explain
 
@@ -47,23 +77,3 @@ Exemplos:
 > kubectl explain deployment.spec.template.spec.containers
 
 > kubectl explain deployment.spec.template.spec.containers.image
-
-
-
-<hr>
-  
-Realizando um deploy (Rolling Update) on the fly...
-
-Editar o Deploy:
-  
-> kubectl edit deployment fiapslackpage
-
-Usar a imagem publicada pelo Vizinho
-
-> DE :    &nbsp;&nbsp;&nbsp;&nbsp;      image: "tonanuvem/fiap_slackpage"
-
-> PARA:   &nbsp;&nbsp;&nbsp;&nbsp;      image: "USUARIO_VIZINHO/fiap_slackpage"
-
-Verificar a nova versão do Deployment que foi gerada, possibilitando um fácil rollback:
-
-> kubectl rollout history deployment/fiapslackpage
