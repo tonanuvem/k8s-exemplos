@@ -52,6 +52,14 @@ Exemplos:
 
 <hr>
   
-Realizando um 
+Realizando um deploy (Rolling Update) on the fly...
+
+Editar o Deploy:
   
 > kubectl edit deployment fiapslackpage
+
+Usar a imagem publicada pelo Vizinho
+
+> DE :    &nbsp;&nbsp;&nbsp;&nbsp;      image: "tonanuvem/fiap_slackpage"
+
+> PARA:   &nbsp;&nbsp;&nbsp;&nbsp;      image: "USUARIO_VIZINHO/fiap_slackpage"
