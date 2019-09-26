@@ -27,3 +27,17 @@ Verificar quais recursos foram criados:
 Abrir a página e testar
 
 > minikube service fiapslackpage
+
+
+
+Para verificar o significado dos campos no manifesto dos recursos K8S, pode-se usar o comando : kubectl explain
+
+Exemplos: 
+
+> kubectl explain deployment
+> kubectl explain deployment.metadata
+> kubectl explain deployment.spec
+> kubectl explain deployment.spec.template
+> kubectl explain deployment.spec.template.spec
+> kubectl explain deployment.spec.template.spec.containers
+> kubectl explain deployment.spec.template.spec.containers.image
