@@ -1,6 +1,6 @@
 # k8s-slackpage
 
-<b>PARTE 1:</b>
+<li> <b>PARTE 1:</b>
 
 Download dos arquivos que serão usados para fazer o Deployment no K8S e criar o serviço do tipo NodePort (usaremos no minikube)
 
@@ -33,7 +33,7 @@ Abrir a página e testar
 
 <hr>
 
-<b>PARTE 2:</b>
+<li> <b>PARTE 2:</b>
 
 Realizando um deploy (Rolling Update) on the fly...
 
