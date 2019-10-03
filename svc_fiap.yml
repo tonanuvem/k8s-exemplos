@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "fiap-service"
+  name: fiap-service
 spec:
   selector:
-    app: "fiapslackpage"
+    app: fiapslackpage
   ports:
     - protocol: "TCP"
       port: 80
