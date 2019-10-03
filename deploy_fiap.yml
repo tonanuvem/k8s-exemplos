@@ -16,11 +16,7 @@ spec:
     spec:
       containers:
         - name: fiapslackpage
-            image: "USUARIO/fiap_slackpage"
+          image: "tonanuvem/fiap_slackpage"
           ports:
             - name: http
               containerPort: 80
-          resources:
-            limits:
-              cpu: 0.2
-              memory: "10Mi"
