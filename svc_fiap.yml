@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "fiapslackpage"
+  name: "fiap-service"
 spec:
   selector:
     app: "fiapslackpage"
