@@ -4,6 +4,9 @@ metadata:
   name: fiap-deployment
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: fiapslackpage
   template:
     metadata:
       labels:
