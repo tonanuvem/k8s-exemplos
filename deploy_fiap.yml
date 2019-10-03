@@ -1,9 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiapslackpage
+  name: fiap-deployment
+  labels:
+    app: fiapslackpage
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: fiapslackpage
   template:
     metadata:
       labels:
@@ -11,7 +16,7 @@ spec:
     spec:
       containers:
         - name: fiapslackpage
-          image: "USUARIO/fiap_slackpage"
+            image: "USUARIO/fiap_slackpage"
           ports:
             - name: http
               containerPort: 80
