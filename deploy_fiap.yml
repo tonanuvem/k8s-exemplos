@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: fiapslackpage
+  name: fiap-deployment
 spec:
   replicas: 5
   template:
