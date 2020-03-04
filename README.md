@@ -63,6 +63,7 @@ Verificar novamente o histórico:
 <li> <b>PARTE 3:</b>
 
 Exemplo: Sock Shop : A Microservice Demo Application
+<br><br>
 Link: https://github.com/microservices-demo/microservices-demo
 
 Executar a stack:
