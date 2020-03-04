@@ -58,6 +58,24 @@ Realizar o rollback:
 Verificar novamente o histórico:
 
 > kubectl rollout history deployment/fiapslackpage
+<hr>
+
+<li> <b>PARTE 3:</b>
+
+Exemplo: Sock Shop : A Microservice Demo Application
+Link: https://github.com/microservices-demo/microservices-demo
+
+Executar a stack:
+  
+> kubectl create -f microservice-demo-weaveworks-socks.yaml
+
+Verificar os serviços em execução no namespace sock-shop:
+
+> kubectl get svc -n sock-shop
+
+Verificar todos os objetos do namespace sock-shop
+
+> kubectl get all -n sock-shop
 
 <hr>
 
