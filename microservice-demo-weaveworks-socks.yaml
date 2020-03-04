@@ -1,3 +1,4 @@
+# https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -238,11 +239,12 @@ metadata:
     name: front-end
   namespace: sock-shop
 spec:
-  type: NodePort
+  type: LoadBalancer
+  #type: NodePort
   ports:
   - port: 80
     targetPort: 8079
-    nodePort: 30001
+  #nodePort: 30001
   selector:
     name: front-end
 ---
@@ -650,15 +652,3 @@ spec:
     targetPort: 80
   selector:
     name: user
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
