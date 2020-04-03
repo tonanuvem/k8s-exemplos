@@ -16,11 +16,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: carts-db
+      name: carts-db
   template:
     metadata:
       labels:
-        app: carts-db
+        name: carts-db
     spec:
       containers:
       - name: carts-db
@@ -73,11 +73,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: carts
+      name: carts
   template:
     metadata:
       labels:
-        app: carts
+        name: carts
     spec:
       containers:
       - name: carts
@@ -134,7 +134,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: catalogue-db
+      name: catalogue-db
   template:
     metadata:
       labels:
@@ -180,7 +180,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: catalogue
+      name: catalogue
   template:
     metadata:
       labels:
@@ -227,7 +227,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-end
+      name: front-end
   template:
     metadata:
       labels:
@@ -280,7 +280,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-db
+      name: orders-db
   template:
     metadata:
       labels:
