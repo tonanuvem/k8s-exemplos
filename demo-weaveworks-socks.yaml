@@ -20,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-        name: carts-db
+        app: carts-db
     spec:
       containers:
       - name: carts-db
@@ -77,7 +77,7 @@ spec:
   template:
     metadata:
       labels:
-        name: carts
+        app: carts
     spec:
       containers:
       - name: carts
