@@ -134,11 +134,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: catalogue-db
+      app: catalogue-db
   template:
     metadata:
       labels:
-        name: catalogue-db
+        app: catalogue-db
     spec:
       containers:
       - name: catalogue-db
@@ -167,7 +167,7 @@ spec:
   - port: 3306
     targetPort: 3306
   selector:
-    name: catalogue-db
+    app: catalogue-db
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -180,11 +180,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: catalogue
+      app: catalogue
   template:
     metadata:
       labels:
-        name: catalogue
+        app: catalogue
     spec:
       containers:
       - name: catalogue
@@ -216,7 +216,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: catalogue
+    app: catalogue
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -227,11 +227,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: front-end
+      app: front-end
   template:
     metadata:
       labels:
-        name: front-end
+        app: front-end
     spec:
       containers:
       - name: front-end
@@ -267,7 +267,7 @@ spec:
     targetPort: 8079
   #nodePort: 30001
   selector:
-    name: front-end
+    app: front-end
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -280,11 +280,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: orders-db
+      app: orders-db
   template:
     metadata:
       labels:
-        name: orders-db
+        app: orders-db
     spec:
       containers:
       - name: orders-db
@@ -324,7 +324,7 @@ spec:
   - port: 27017
     targetPort: 27017
   selector:
-    name: orders-db
+    app: orders-db
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -341,7 +341,7 @@ spec:
   template:
     metadata:
       labels:
-        name: orders
+        app: orders
     spec:
       containers:
       - name: orders
@@ -385,7 +385,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: orders
+    app: orders
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -402,7 +402,7 @@ spec:
   template:
     metadata:
       labels:
-        name: payment
+        app: payment
     spec:
       containers:
       - name: payment
@@ -434,7 +434,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: payment
+    app: payment
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -451,7 +451,7 @@ spec:
   template:
     metadata:
       labels:
-        name: queue-master
+        app: queue-master
     spec:
       containers:
       - name: queue-master
@@ -476,7 +476,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: queue-master
+    app: queue-master
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -493,7 +493,7 @@ spec:
   template:
     metadata:
       labels:
-        name: rabbitmq
+        app: rabbitmq
     spec:
       containers:
       - name: rabbitmq
@@ -526,7 +526,7 @@ spec:
   - port: 5672
     targetPort: 5672
   selector:
-    name: rabbitmq
+    app: rabbitmq
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -543,7 +543,7 @@ spec:
   template:
     metadata:
       labels:
-        name: shipping
+        app: shipping
     spec:
       containers:
       - name: shipping
@@ -587,7 +587,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: shipping
+    app: shipping
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -604,7 +604,7 @@ spec:
   template:
     metadata:
       labels:
-        name: user-db
+        app: user-db
     spec:
       containers:
       - name: user-db
@@ -644,7 +644,7 @@ spec:
   - port: 27017
     targetPort: 27017
   selector:
-    name: user-db
+    app: user-db
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -661,7 +661,7 @@ spec:
   template:
     metadata:
       labels:
-        name: user
+        app: user
     spec:
       containers:
       - name: user
@@ -696,4 +696,4 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    name: user
+    app: user
