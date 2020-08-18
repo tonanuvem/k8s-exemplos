@@ -1,22 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiap-deployment
+  name: chat-deployment
   labels:
-    app: fiapslackpage
+    app: fiapchat
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: fiapslackpage
+      app: fiapchat
   template:
     metadata:
       labels:
-        app: fiapslackpage
+        app: fiapchat
     spec:
       containers:
-        - name: fiapslackpage
+        - name: fiapchat
           image: "tonanuvem/chat"
           ports:
             - name: http
               containerPort: 80
+kind: Service
+apiVersion: v1
+metadata:
+  name: chat-service
+spec:
+  selector:
+    app: fiapchat
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+      nodePort: 32000
+  type: NodePort
