@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiap-deployment
+  labels:
+    app: fiapslackpage
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: fiapslackpage
+  template:
+    metadata:
+      labels:
+        app: fiapslackpage
+    spec:
+      containers:
+        - name: fiapslackpage
+          image: "tonanuvem/chat"
+          ports:
+            - name: http
+              containerPort: 80
