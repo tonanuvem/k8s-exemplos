@@ -1,4 +1,4 @@
-# k8s-slackpage
+# k8s (exemplos)
 
 <li> <b>PARTE 1:</b>
 
