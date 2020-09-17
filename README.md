@@ -78,6 +78,13 @@ Verificar todos os objetos do namespace sock-shop
 
 > kubectl get all -n sock-shop
 
+<li> <b>PARTE 4:</b>
+
+Exemplo: Chat Websocket
+<br><br>
+
+> kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
+
 <hr>
 
 <i>EXTRA:</i>
