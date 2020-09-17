@@ -19,7 +19,7 @@ spec:
           image: "tonanuvem/chat"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
 ---
 kind: Service
 apiVersion: v1
@@ -30,7 +30,7 @@ spec:
     app: fiapchat
   ports:
     - protocol: "TCP"
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
       nodePort: 32000
   type: NodePort
