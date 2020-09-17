@@ -78,6 +78,10 @@ Verificar todos os objetos do namespace sock-shop
 
 > kubectl get all -n sock-shop
 
+
+
+<hr>
+
 <li> <b>PARTE 4:</b>
 
 Exemplo: Chat Websocket
