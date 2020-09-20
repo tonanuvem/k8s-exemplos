@@ -11,8 +11,8 @@ sudo kubeadm init
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-source <(kubectl completion bash)
+#source <(kubectl completion bash)
 
 # Configurar a rede:
 
-sh config_network_weave.sh
+sh ~/k8s-exemplos/config_network_weave.sh
