@@ -35,17 +35,18 @@ ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'b
 # Exemplo:
 # kubeadm join 10.0.1.169:6443 --token fdwf9o.om0jvrom7uv3eeg4 \
 #    --discovery-token-ca-cert-hash sha256:46abcfc7e371878b78f1071a7e396a3b1f1e851cbec76e65f0030d3f73411fd1
+printf "\n\n"
 echo "Copie e cole 2 linhas com KUBEADM JOIN exibido acima: (digite ENTER PARA CONCLUIR)"
 read TOKEN
-read ENTER
+#read ENTER
 
 echo "sudo hostnamectl set-hostname worker1" >> worker1.sh
 echo "sudo hostnamectl set-hostname worker2" >> worker2.sh
 echo "sudo hostnamectl set-hostname worker3" >> worker3.sh
 
-echo "sudo $TOKEN $ENTER" >> worker1.sh
-echo "sudo $TOKEN $ENTER" >> worker2.sh
-echo "sudo $TOKEN $ENTER" >> worker3.sh
+echo "sudo $TOKEN" >> worker1.sh
+echo "sudo $TOKEN" >> worker2.sh
+echo "sudo $TOKEN" >> worker3.sh
 
 # validar
 #cat worker1.sh
