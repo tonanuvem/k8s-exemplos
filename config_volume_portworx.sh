@@ -9,3 +9,15 @@ curl -L -s -o px-spec.yaml "https://install.portworx.com/2.6?mc=false&kbver=${VE
 # Configurar replicação dos discos utilizando a ferramenta Portworx:
 
 kubectl apply -f px-spec.yaml
+
+kubectl get pods -o wide -n kube-system -l name=portworx
+
+# Aguadar até: Ready 1/1 (Demora uns 4 min) --> Para sair, CTRL + C
+echo "Aguardando PORTWORX (geralmente 4 min): "
+while [ "$(kubectl get pods -o wide -n kube-system -l name=portworx | grep Running | wc -l)" != "1" ]; do
+  printf "."
+  sleep 1
+done
+
+PX_POD=$(kubectl get pods -l name=portworx -n kube-system -o jsonpath='{.items[0].metadata.name}')
+kubectl exec -it $PX_POD -n kube-system -- /opt/pwx/bin/pxctl status
