@@ -19,7 +19,7 @@ provisioner: kubernetes.io/portworx-volume
 parameters:
   repl: "3"
   priority_io: "high"
---
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
