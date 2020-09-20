@@ -56,4 +56,4 @@ ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE2 'ba
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE3 'bash -s' < worker3.sh
 
 ### CONFIGURANDO OS VOLUMES 
-ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@MASTER 'bash -s' < config_volume_portworx.sh
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_volume_portworx.sh
