@@ -23,6 +23,9 @@ echo "sudo chown $(id -u):$(id -g) $HOME/.kube/config" >> master.sh
 
 # Configurar via SSH
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_master.sh
+printf "\n\n"
+echo "   Copiar a linha acima : KUBEADM JOIN"
+printf "\n\n"
 echo "Master do Cluster foi inicializado. Agora vamos configurar a rede do cluster."
 # Configurar a rede do cluster:
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_network_weave.sh
