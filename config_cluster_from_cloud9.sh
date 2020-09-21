@@ -92,4 +92,5 @@ ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'b
 ### CONFIGURANDO OS VOLUMES 
 printf "\n\n"
 echo "   CONFIGURAÇÕES REALIZADAS. FIM."
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl get nodes'
 printf "\n\n"
