@@ -16,6 +16,12 @@ echo $NODE3
 #NODE2=$(~/environment/ip | awk -Fv '/vm_2/{print $1}')
 #NODE3=$(~/environment/ip | awk -Fv '/vm_3/{print $1}')
 
+# reset arquivos vazios dos scripts:
+> master.sh
+> worker1.sh
+> worker2.sh
+> worker3.sh
+
 # CONFIGURANDO O MASTER utilizando o KUBEADM INIT:
 echo "sudo hostnamectl set-hostname master" >> master.sh
 echo "Aguardando instalação do KUBEADM."
