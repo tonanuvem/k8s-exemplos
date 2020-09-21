@@ -89,3 +89,7 @@ printf "\n\n"
 echo "   CONFIGURANDO OS VOLUMES: PORTWORX"
 printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_volume_portworx.sh
+### CONFIGURANDO OS VOLUMES 
+printf "\n\n"
+echo "   CONFIGURAÇÕES REALIZADAS. FIM."
+printf "\n\n"
