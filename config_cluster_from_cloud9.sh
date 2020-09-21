@@ -25,7 +25,7 @@ echo "NODE3 = $NODE3"
 # CONFIGURANDO O MASTER utilizando o KUBEADM INIT:
 echo "sudo hostnamectl set-hostname master" >> master.sh
 echo "Aguardando instalação do KUBEADM."
-echo "while [ \"\$(kubectl version --short | awk -Fv '/Server Version: /{print \$3}' | wc -l)\" != \"1\" ]; do printf \".\"; sleep 1;  done" >> master.sh
+echo "while [ \"\$(kubectl version --short | grep 'Server Version' | wc -l)\" != \"1\" ]; do printf \".\"; sleep 1;  done" >> master.sh
 echo "kubeadm version" >> master.sh
 echo "sudo kubeadm config images pull" >> master.sh
 echo "sudo kubeadm init" >> master.sh
