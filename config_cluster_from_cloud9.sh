@@ -81,4 +81,8 @@ printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE3 'bash -s' < worker3.sh
 
 ### CONFIGURANDO OS VOLUMES 
+sleep 5
+printf "\n\n"
+echo "   CONFIGURANDO OS VOLUMES: PORTWORX"
+printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_volume_portworx.sh
