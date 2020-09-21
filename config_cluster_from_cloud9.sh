@@ -2,10 +2,15 @@
 
 ~/environment/ip # | awk -Fv '/vm_0/{print $1}' 
 
-MASTER=$(~/environment/ip | awk -Fv '/vm_0/{print $1}')
-NODE1=$(~/environment/ip | awk -Fv '/vm_1/{print $1}')
-NODE2=$(~/environment/ip | awk -Fv '/vm_2/{print $1}')
-NODE3=$(~/environment/ip | awk -Fv '/vm_3/{print $1}')
+MASTER=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_0/) ) { print } }')
+NODE1=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_1/) ) { print } }')
+NODE2=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_2/) ) { print } }')
+NODE3=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_3/) ) { print } }')
+
+#MASTER=$(~/environment/ip | awk -Fv '/vm_0/{print $1}')
+#NODE1=$(~/environment/ip | awk -Fv '/vm_1/{print $1}')
+#NODE2=$(~/environment/ip | awk -Fv '/vm_2/{print $1}')
+#NODE3=$(~/environment/ip | awk -Fv '/vm_3/{print $1}')
 
 # CONFIGURANDO O MASTER utilizando o KUBEADM INIT:
 echo "sudo hostnamectl set-hostname master" >> master.sh
