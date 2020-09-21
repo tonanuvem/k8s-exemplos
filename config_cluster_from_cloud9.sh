@@ -1,6 +1,6 @@
 # conectar no master e configurar
 
-~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") ) { print } }'
+# ~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") ) { print } }'
 
 MASTER=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_0/) ) { print $1} }')
 NODE1=$(~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") && (/vm_1/) ) { print $1} }')
