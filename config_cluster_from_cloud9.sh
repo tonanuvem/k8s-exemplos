@@ -79,6 +79,10 @@ printf "\n\n"
 echo "   CONFIGURANDO NODE 3: KUBEADM JOIN"
 printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE3 'bash -s' < worker3.sh
+printf "\n\n"
+echo "   VERIFICANDO NODES NO MASTER :"
+printf "\n\n"
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl get nodes'
 
 ### CONFIGURANDO OS VOLUMES 
 sleep 5
