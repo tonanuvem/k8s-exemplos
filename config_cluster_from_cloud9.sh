@@ -41,7 +41,7 @@ echo "sudo chown $(id -u):$(id -g) $HOME/.kube/config" >> master.sh
 # Configurar via SSH
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_master.sh
 printf "\n\n"
-echo "   Copiar a linha acima : KUBEADM JOIN"
+echo "   Copiar 2 linhas acima : KUBEADM JOIN"
 printf "\n\n"
 echo "Master do Cluster foi inicializado. Agora vamos configurar a rede do cluster."
 # Configurar a rede do cluster:
@@ -54,6 +54,9 @@ ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'b
 #    --discovery-token-ca-cert-hash sha256:46abcfc7e371878b78f1071a7e396a3b1f1e851cbec76e65f0030d3f73411fd1
 printf "\n\n"
 echo "Copie e cole 2 linhas com KUBEADM JOIN exibido acima: (digite ENTER PARA CONCLUIR)"
+echo "Exemplo das 2 linhas a serem copiadas:"
+echo " kubeadm join 10.0.1.169:6443 --token fdwf9o.om0jvrom7uv3eeg4 \"
+echo "    --discovery-token-ca-cert-hash sha256:46abcfc7e371878b78f1071a7e396a3b1f1e851cbec76e65f0030d3f73411fd1"
 read TOKEN
 #read ENTER
 
