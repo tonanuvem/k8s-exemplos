@@ -67,9 +67,17 @@ echo "sudo $TOKEN" >> worker3.sh
 
 # validar
 #cat worker1.sh
-
+printf "\n\n"
+echo "   CONFIGURANDO NODE 1: KUBEADM JOIN"
+printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE1 'bash -s' < worker1.sh
+printf "\n\n"
+echo "   CONFIGURANDO NODE 2: KUBEADM JOIN"
+printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE2 'bash -s' < worker2.sh
+printf "\n\n"
+echo "   CONFIGURANDO NODE 3: KUBEADM JOIN"
+printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$NODE3 'bash -s' < worker3.sh
 
 ### CONFIGURANDO OS VOLUMES 
