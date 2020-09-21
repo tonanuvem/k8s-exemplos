@@ -85,7 +85,6 @@ printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl get nodes'
 
 ### CONFIGURANDO OS VOLUMES 
-sleep 5
 printf "\n\n"
 echo "   CONFIGURANDO OS VOLUMES: PORTWORX"
 printf "\n\n"
