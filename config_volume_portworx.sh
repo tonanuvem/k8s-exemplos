@@ -15,7 +15,7 @@ done
 
 # Configurar replicação dos discos utilizando a ferramenta Portworx:
 kubectl apply -f px-spec.yaml
-
+sleep 10
 kubectl get pods -o wide -n kube-system -l name=portworx
 
 # Aguadar até: Ready 1/1 (Demora uns 4 min) --> Para sair, CTRL + C
