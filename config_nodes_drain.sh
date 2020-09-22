@@ -2,6 +2,7 @@
 # this script can be run as a cronjob: https://github.com/kubernetes/kubernetes/issues/55713
 # outro script: https://github.com/mattmattox/drain-node-on-crash
 # info: https://stackoverflow.com/questions/53641252/kubernetes-recreate-pod-if-node-becomes-offline-timeout/57805955#57805955
+# info: https://dev.to/duske/how-kubernetes-handles-offline-nodes-53b5
 
 KUBECTL="/usr/local/bin/kubectl"
 
