@@ -15,6 +15,7 @@ echo "Ready nodes: $READY_NODES"
 for node in $NOT_READY_NODES; do
   echo "Node $node not drained yet, draining..."
   $KUBECTL drain --ignore-daemonsets --force $node
+  # kubectl delete pod --force --grace-period=0
   echo "Done"
 done;
 
