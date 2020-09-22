@@ -1,5 +1,6 @@
 #!/bin/sh
-#script, that can be run as a cronjob: https://github.com/kubernetes/kubernetes/issues/55713
+# this script can be run as a cronjob: https://github.com/kubernetes/kubernetes/issues/55713
+# outro script: https://github.com/mattmattox/drain-node-on-crash
 
 KUBECTL="/usr/local/bin/kubectl"
 
