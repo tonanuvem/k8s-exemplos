@@ -1,5 +1,5 @@
 #!/bin/sh
-#script, that can be run as a cronjob:
+#script, that can be run as a cronjob: https://github.com/kubernetes/kubernetes/issues/55713
 
 KUBECTL="/usr/local/bin/kubectl"
 
