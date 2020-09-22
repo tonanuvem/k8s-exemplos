@@ -23,8 +23,9 @@ echo "NODE3 = $NODE3"
 > worker3.sh
 
 # CONFIGURANDO O MASTER utilizando o KUBEADM INIT:
-echo "sudo hostnamectl set-hostname master" >> master.sh
+#echo "sudo hostnamectl set-hostname master" >> master.sh
 echo "Aguardando instalação do KUBEADM."
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER "sudo hostnamectl set-hostname master"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER "while [ \$(dpkg -l | grep kubeadm | wc -l) != '1' ]; do { printf .; sleep 1; } done"
 #echo "while [ \$(dpkg -l | grep kubeadm | wc -l) != '1' ]; do { printf .; sleep 1; } done" >> master.sh
 echo "kubeadm version" >> master.sh
