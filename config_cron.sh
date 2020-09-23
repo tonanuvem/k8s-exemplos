@@ -22,7 +22,7 @@ for node in $READY_NODES; do
 done;
 EOL
 
-# cron
+# cron no MASTER
 #wget https://tonanuvem.github.io/k8s-exemplos/config_nodes_drain.sh
 croncmd="/home/ubuntu/config_nodes_drain.sh"
 cronlog="/home/ubuntu/config_nodes_drain.log"
