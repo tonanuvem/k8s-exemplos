@@ -44,6 +44,7 @@ echo "sudo chown $(id -u):$(id -g) $HOME/.kube/config" >> master.sh
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < master.sh
 # Get Token
 TOKEN=$(ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'sudo kubeadm token create --print-join-command')
+printf "\n\n"
 echo $TOKEN
 printf "\n\n"
 echo "   Copiar 2 linhas acima : KUBEADM JOIN"
