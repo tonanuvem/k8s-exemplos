@@ -47,7 +47,7 @@ TOKEN=$(ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$M
 printf "\n\n"
 echo $TOKEN
 printf "\n\n"
-echo "   Copiar 2 linhas acima : KUBEADM JOIN"
+echo "   TOKEN ACIMA : KUBEADM JOIN"
 printf "\n\n"
 echo "Master do Cluster foi inicializado. Agora vamos configurar a rede do cluster."
 # Configurar a rede do cluster:
