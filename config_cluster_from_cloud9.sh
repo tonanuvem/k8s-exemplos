@@ -52,8 +52,6 @@ printf "\n\n"
 echo "Master do Cluster foi inicializado. Agora vamos configurar a rede do cluster."
 # Configurar a rede do cluster:
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_network_weave.sh
-# Cron para detectar rapidamente falha nos nodes
-ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_cron.sh
 
 ### CONFIGURANDO OS NODES utilizando o KUBEADM JOIN:
 
@@ -101,7 +99,9 @@ printf "\n\n"
 echo "   CONFIGURANDO OS VOLUMES: PORTWORX"
 printf "\n\n"
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_volume_portworx.sh
-### CONFIGURANDO OS VOLUMES 
+# Cron para detectar rapidamente falha nos nodes
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_cron.sh
+
 printf "\n\n"
 echo "   CONFIGURAÇÕES REALIZADAS. FIM."
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl get nodes'
