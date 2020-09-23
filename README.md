@@ -89,6 +89,12 @@ Exemplo: Chat Websocket
 
 > kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
 
+Exemplo: Wordpress com BD Mysql
+<br><br>
+
+
+> kubectl create -f https://tonanuvem.github.io/k8s-exemplos/wordpress_mysql.yaml
+
 <hr>
 
 <i>EXTRA:</i>
