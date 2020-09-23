@@ -6,7 +6,8 @@
 # info: https://dev.to/duske/how-kubernetes-handles-offline-nodes-53b5
 # info: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions
 
-KUBECTL="/usr/local/bin/kubectl"
+#KUBECTL="/usr/local/bin/kubectl"
+KUBECTL="kubectl"
 
 # Get only nodes which are not drained yet
 NOT_READY_NODES=$($KUBECTL get nodes | grep -P 'NotReady(?!,SchedulingDisabled)' | awk '{print $1}' | xargs echo)
