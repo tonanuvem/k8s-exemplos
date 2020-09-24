@@ -50,7 +50,7 @@ elif [[ "$MODO" -eq 4 ]]; then
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/wordpress_mysql.yaml
     kubectl delete -f https://tonanuvem.github.io/k8s-clientes-nginx-mongodb/vol_mysql.yaml
     kubectl delete -f https://tonanuvem.github.io/k8s-clientes-nginx-mongodb/vol_clientes.yaml
-else echo "Voce precisa escolher 1 , 2 ou 3."
+else echo "Voce precisa escolher 1 , 2 , 3 ou 4."
 fi
 echo ""
 kubectl get pod -o wide -n sock-shop
