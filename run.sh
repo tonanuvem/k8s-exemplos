@@ -11,10 +11,11 @@ if [[ "$MODO" -eq 1 ]]; then
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-nodeport-socks.yaml
     kubectl get svc -n sock-shop
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
-    kubectl get svc -n fiap-chat
+    #kubectl get svc -n fiap-chat
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/deploy_fiap.yml
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/svc_fiap.yml
-    kubectl get svc -n fiap-service  
+    #kubectl get svc -n fiap-service  
+    kubectl get svc
 elif [[ "$MODO" -eq 2 ]]; then
     echo "LOADBALANCE:"
     # Executar stack modo LOADBALANCE:
@@ -22,10 +23,11 @@ elif [[ "$MODO" -eq 2 ]]; then
     #kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-loadbalancer-socks.yaml
     kubectl get svc -n sock-shop
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
-    kubectl get svc -n fiap-chat
+    #kubectl get svc -n fiap-chat
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/deploy_fiap.yml
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/svc_fiap_gcp.yml
-    kubectl get svc -n fiap-service      
+    #kubectl get svc -n fiap-service  
+    kubectl get svc
 elif [[ "$MODO" -eq 3 ]]; then
     echo "EXEMPLOS COM VOLUME PORTWORX: WORDPRESS & CLIENTES"
     # Executar stacks modo VOLUME PORTWOR:
