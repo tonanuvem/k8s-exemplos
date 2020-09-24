@@ -105,7 +105,7 @@ RUN ALL:
 
 > wget https://tonanuvem.github.io/k8s-exemplos/run.sh
 
-> sh run.sh
+> chmod +x run.sh; ./run.sh
 
 <hr>
 
