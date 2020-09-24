@@ -4,6 +4,7 @@
 cat >> /home/ubuntu/config_nodes_drain.sh << EOL
 NOT_READY_NODES=\$(kubectl get nodes | grep -P 'NotReady(?!,SchedulingDisabled)' | awk '{print $1}' | xargs echo)
 READY_NODES=\$(kubectl get nodes | grep '\sReady,SchedulingDisabled' | awk '{print $1}' | xargs echo)
+echo "   CRON: \$(date)"
 echo "Unready nodes that are undrained: \$NOT_READY_NODES"
 echo "Ready nodes: \$READY_NODES"
 for node in \$NOT_READY_NODES; do
