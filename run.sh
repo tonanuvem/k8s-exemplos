@@ -18,7 +18,8 @@ if [[ "$MODO" -eq 1 ]]; then
 elif [[ "$MODO" -eq 2 ]]; then
     echo "LOADBALANCE:"
     # Executar stack modo LOADBALANCE:
-    kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-loadbalancer-socks.yaml
+    kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-weaveworks-socks.yaml
+    #kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-loadbalancer-socks.yaml
     kubectl get svc -n sock-shop
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
     kubectl get svc -n fiap-chat
