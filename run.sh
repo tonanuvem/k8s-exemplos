@@ -33,7 +33,7 @@ elif [[ "$MODO" -eq 3 ]]; then
     echo "EXEMPLOS COM VOLUME PORTWORX: WORDPRESS & CLIENTES"
     # Executar stacks modo VOLUME PORTWOR:
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/wordpress_mysql.yaml
-    kubectl create -f https://tonanuvem.github.io/k8s-clientes-nginx-mongodb/vol_mysql.yaml
+    kubectl create -f https://tonanuvem.github.io/k8s-clientes-nginx-mongodb/vol_mongo.yaml
     kubectl create -f https://tonanuvem.github.io/k8s-clientes-nginx-mongodb/vol_clientes.yaml
     kubectl get svc
 elif [[ "$MODO" -eq 4 ]]; then
