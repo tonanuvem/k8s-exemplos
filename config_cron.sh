@@ -22,7 +22,7 @@ EOL
 # cron no MASTER
 #wget https://tonanuvem.github.io/k8s-exemplos/config_nodes_drain.sh
 croncmd="/home/ubuntu/config_nodes_drain.sh"
-cronlog="/home/ubuntu/config_nodes_drain.log"
+cronlog="/home/ubuntu/log_config_nodes_drain.log"
 echo $croncmd
 chmod +x $croncmd
 cronjob="*/1 * * * * $croncmd >> $cronlog 2>&1"
