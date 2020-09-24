@@ -97,8 +97,19 @@ Exemplo: Wordpress com BD Mysql
 
 <hr>
 
-<i>EXTRA:</i>
+<li> <b>PARTE 5:</b>
 
+RUN ALL:
+<br><br>
+
+
+> wget https://tonanuvem.github.io/k8s-exemplos/run.sh
+
+> sh run.sh
+
+<hr>
+
+<i>EXTRA:</i>
 
 Para verificar o significado dos campos no manifesto dos recursos K8S, pode-se usar o comando : kubectl explain
 
