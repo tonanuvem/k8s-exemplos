@@ -107,6 +107,19 @@ RUN ALL:
 
 > chmod +x run.sh; ./run.sh
 
+
+<hr>
+
+<i>DEBUG:</i>
+
+> kubectl run debug --image=k8s.gcr.io/busybox -it --rm --restart=Never -- sh
+
+> ping NOME_SERVICO
+
+> kubectl exec -ti NOME_POD_APP -- bash
+
+> curl localhost:PORTA
+
 <hr>
 
 <i>EXTRA:</i>
