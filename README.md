@@ -78,8 +78,6 @@ Verificar todos os objetos do namespace sock-shop
 
 > kubectl get all -n sock-shop
 
-
-
 <hr>
 
 <li> <b>PARTE 4:</b>
@@ -107,6 +105,13 @@ RUN ALL:
 
 > chmod +x run.sh; ./run.sh
 
+RUN via comandos:
+
+> kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+
+> kubectl expose deployment hello-node --type=NodePort --port=8080
+
+> kubectl scale deploy hello-node --replicas=2
 
 <hr>
 
