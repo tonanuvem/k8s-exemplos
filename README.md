@@ -60,6 +60,8 @@ Verificar novamente o histórico:
 > kubectl rollout history deployment/fiapslackpage
 <hr>
 
+Link Exemplo StatefulSet : https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
+
 <li> <b>PARTE 3:</b>
 
 Exemplo: Sock Shop : A Microservice Demo Application
