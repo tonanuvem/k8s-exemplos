@@ -16,10 +16,16 @@ export PORT=$(kubectl -n kong get service kong -o jsonpath='{.spec.ports[?(@.nam
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 # configurar rota para o dashboard
+printf "\n\n"
+echo "   KONG : CONFIGURANDO ROTAS"
+printf "\n\n"
 curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dashboard' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
 curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes --data 'paths[]=/dashboard'
 
 # criando usuario de exemplo: https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+printf "\n\n"
+echo "   DASHBOARD : CONFIGURANDO TOKEN"
+printf "\n\n"
 # criar Conta
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
