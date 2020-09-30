@@ -43,5 +43,14 @@ subjects:
   name: aluno
   namespace: kubernetes-dashboard
 EOF
+printf "\n\n"
+echo "   KONG : "
+kubectl -n kong get service kong
+printf "\n\n"
+echo "   KONGA UI : "
+kubectl -n kong get service konga
+printf "\n\n"
+echo "   TOKEN DASHBOARD : "
+printf "\n\n"
 # verificar Token
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep aluno | awk '{print $1}')
