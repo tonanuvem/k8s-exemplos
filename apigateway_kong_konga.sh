@@ -18,3 +18,30 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 # configurar rota para o dashboard
 curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dashboard' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
 curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes --data 'paths[]=/dashboard'
+
+# criando usuario de exemplo: https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+# criar Conta
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aluno
+  namespace: kubernetes-dashboard
+EOF
+# criar Permissão
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: aluno
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: aluno
+  namespace: kubernetes-dashboard
+EOF
+# verificar Token
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep aluno | awk '{print $1}')
