@@ -17,4 +17,4 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 
 # configurar rota para o dashboard
 curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dashboard' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
-curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes 'paths[]=/dashboard'
+curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes --data 'paths[]=/dashboard'
