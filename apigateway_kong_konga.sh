@@ -21,6 +21,7 @@ echo "   KONG : CONFIGURANDO ROTAS"
 printf "\n\n"
 curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dashboard' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
 curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes --data 'paths[]=/dashboard'
+curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes --data 'paths[]=/'
 
 # criando usuario de exemplo: https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 printf "\n\n"
