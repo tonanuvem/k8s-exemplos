@@ -16,4 +16,5 @@ export PORT=$(kubectl -n kong get service kong -o jsonpath='{.spec.ports[?(@.nam
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 # configurar rota para o dashboard
-curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dash' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
+curl -i -X POST --url http://$IP:$PORT/services/ --data 'name=dashboard' --data 'url=https://kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local'
+curl -i -X POST --url http://$IP:$PORT/services/dashboard/routes 'paths[]=/dashboard'
