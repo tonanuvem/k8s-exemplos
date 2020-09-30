@@ -103,7 +103,7 @@ ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'b
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'bash -s' < config_cron.sh
 # configurar um Storage Class default no cluster
 ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl create -f https://tonanuvem.github.io/k8s-exemplos/storageclass_default_portworx.yaml'
-ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl patch storageclass sc-default-portworx -p "{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}"'
+ssh -oStrictHostKeyChecking=no -i ~/environment/chave-fiap.pem ubuntu@$MASTER 'kubectl patch storageclass sc-default-portworx -p \'{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}\''
 
 printf "\n\n"
 echo "   CONFIGURAÇÕES REALIZADAS. FIM."
