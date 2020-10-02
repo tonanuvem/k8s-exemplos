@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+  labels:
+    app: producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+        - name: producer
+          image: "tonanuvem/kafka_producer"
+          ports:
+            - name: http
+              containerPort: 5000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: producer-service
+spec:
+  selector:
+    app: producer
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 5000
+      nodePort: 32500
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+  labels:
+    app: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: "tonanuvem/kafka_consumer"
