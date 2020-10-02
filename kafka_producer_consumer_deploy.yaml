@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: env-kafka
+  name: envkafka
   namespace: default
 data:
   WEBHOOK: "inserir"
@@ -35,22 +35,22 @@ spec:
             - name: WEBHOOK
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: WEBHOOK
             - name: TOPICO
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: TOPICO
             - name: HOST
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: HOST
             - name: PORTA
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: PORTA
 ---
 kind: Service
@@ -90,20 +90,20 @@ spec:
             - name: WEBHOOK
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: WEBHOOK
             - name: TOPICO
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: TOPICO
             - name: HOST
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: HOST
             - name: PORTA
               valueFrom:
                 configMapKeyRef:
-                  name: env-kafka
+                  name: envkafka
                   key: PORTA
