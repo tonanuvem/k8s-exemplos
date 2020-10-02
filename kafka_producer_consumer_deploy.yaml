@@ -4,9 +4,9 @@ metadata:
   name: env-kafka
   namespace: default
 data:
-  WEBHOOK: inserir
-  TOPICO: meu-topico
-  HOST: kafka
+  WEBHOOK: "inserir"
+  TOPICO: "meu-topico"
+  HOST: "kafka"
   PORTA: 9092
 ---
 apiVersion: apps/v1
