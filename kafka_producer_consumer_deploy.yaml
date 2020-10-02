@@ -32,6 +32,8 @@ spec:
             - name: http
               containerPort: 5000
           env:
+            - name: CANAL
+              value: "#lab-produtor"
             - name: WEBHOOK
               valueFrom:
                 configMapKeyRef:
@@ -87,6 +89,8 @@ spec:
         - name: consumer
           image: "tonanuvem/kafka_consumer"
           env:
+            - name: CANAL
+              value: "#lab-consumidor"
             - name: WEBHOOK
               valueFrom:
                 configMapKeyRef:
