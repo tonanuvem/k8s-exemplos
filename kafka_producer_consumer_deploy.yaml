@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-kafka
+  namespace: default
+data:
+  WEBHOOK: inserir
+  TOPICO: meu-topico
+  HOST: kafka
+  PORTA: 9092
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,6 +31,27 @@ spec:
           ports:
             - name: http
               containerPort: 5000
+          env:
+            - name: WEBHOOK
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: WEBHOOK
+            - name: TOPICO
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: TOPICO
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: HOST
+            - name: PORTA
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: PORTA
 ---
 kind: Service
 apiVersion: v1
@@ -54,3 +86,24 @@ spec:
       containers:
         - name: consumer
           image: "tonanuvem/kafka_consumer"
+          env:
+            - name: WEBHOOK
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: WEBHOOK
+            - name: TOPICO
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: TOPICO
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: HOST
+            - name: PORTA
+              valueFrom:
+                configMapKeyRef:
+                  name: env-kafka
+                  key: PORTA
