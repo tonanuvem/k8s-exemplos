@@ -1,5 +1,7 @@
 # https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-beat-configuration-examples.html
 
+# https://github.com/elastic/cloud-on-k8s/tree/master/config/recipes/beats
+
 kubectl apply -f https://download.elastic.co/downloads/eck/1.2.1/all-in-one.yaml
 
 # Metricbeat for Kubernetes
