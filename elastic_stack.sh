@@ -63,7 +63,8 @@ kubectl expose deployment fiap-kb --type=NodePort --port=5601
 kubectl get service fiap-kb-http
 # Login as the elastic user. The password
 echo "   Password do user elastic:"
-kubectl get secret fiap-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+SENHAELASTIC=kubectl get secret fiap-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+echo $SENHAELASTIC
 
 # Deploy APM
 cat <<EOF | kubectl apply -f -
@@ -138,3 +139,6 @@ spec:
       nodePort: 32300
   type: NodePort
 EOF
+
+IP=curl checkip.amazonaws.com
+echo "   Acessar UI Kibana https://$IP:32561 com usuario elastic e senha $SENHAELASTIC"
