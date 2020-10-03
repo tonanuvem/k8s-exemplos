@@ -51,6 +51,7 @@ EOF
 
 kubectl get kibana
 kubectl get pod --selector='kibana.k8s.elastic.co/name=fiap'
+kubectl expose deployment fiap-kb --type=NodePort --port=5601
 kubectl get service fiap-kb-http
 # Login as the elastic user. The password
 echo "   Password do user elastic:"
