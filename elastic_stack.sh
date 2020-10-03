@@ -88,6 +88,7 @@ EOF
 kubectl get apmservers
 kubectl get pods --selector='apm.k8s.elastic.co/name=apm-server-fiap'
 kubectl get service --selector='common.k8s.elastic.co/type=apm-server'
+kubectl describe secret apm-server-fiap-apm-token
 kubectl get secret/apm-server-fiap-apm-token -o go-template='{{index .data "secret-token" | base64decode}}'
 
 # Deploy APP Client APM NodeJS (app-client-apm-nodejs)
@@ -114,6 +115,11 @@ spec:
           env:
             - name: APM
               value: "apm-server-fiap-apm-http"
+            - name: ELASTIC_APM_SECRET_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: apm-server-fiap-apm-token
+                  key: secret-token
           ports:
             - name: http
               containerPort: 3000
