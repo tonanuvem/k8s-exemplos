@@ -20,3 +20,6 @@ kubectl get pv
 printf "\n\n"
 echo "    HELM:"
 helm list
+printf "\n\n"
+echo "    ALL:"
+kubectl get all
