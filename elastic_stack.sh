@@ -211,5 +211,5 @@ sudo metricbeat setup
 sudo service metricbeat start
 
 # Acessar UI Kibana
-IP=curl checkip.amazonaws.com
+IP=$(curl checkip.amazonaws.com)
 echo "   Acessar UI Kibana https://$IP:32561 com usuario elastic e senha $SENHAELASTIC"
