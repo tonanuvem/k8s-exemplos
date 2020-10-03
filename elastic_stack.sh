@@ -51,6 +51,10 @@ spec:
   count: 1
   elasticsearchRef:
     name: fiap
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
 EOF
 
 kubectl get kibana
