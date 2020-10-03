@@ -31,7 +31,7 @@ kubectl get service fiap-es-http
 # Get the credentials.
 PASSWORD=$(kubectl get secret fiap-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 # Request the Elasticsearch endpoint from debug.
-echo "   Verificando se achou o ElasticSearch:"
+echo "   Verificando se achou o ElasticSearch usando a senha  $PASSWORD"
 kubectl run debug --image=yauritux/busybox-curl -it --rm --restart=Never -- curl -u "elastic:$PASSWORD" -k "https://fiap-es-http:9200"
 
 
