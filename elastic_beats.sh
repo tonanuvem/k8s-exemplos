@@ -27,5 +27,5 @@ kubectl apply -f https://raw.githubusercontent.com/elastic/cloud-on-k8s/1.2/conf
 PASSWORD=$(kubectl get secret elasticsearch-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 
 # Acessar UI Kibana
-IP=curl checkip.amazonaws.com
+IP=$(curl checkip.amazonaws.com)
 echo "   Acessar UI Kibana https://$IP:32561 com usuario elastic e senha $PASSWORD"
