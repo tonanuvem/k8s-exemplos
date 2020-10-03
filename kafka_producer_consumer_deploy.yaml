@@ -9,6 +9,17 @@ data:
   HOST: "kafka"
   PORTA: "9092"
 ---
+# Exemplo de PDB 
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: producer-budget
+spec:
+  selector:
+    matchLabels:
+      app: producer
+  minAvailable: 2 # aqui estamos definindo no min 2, mas no Deploy está definido 1 replica. Qual configuração prevalece?
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
