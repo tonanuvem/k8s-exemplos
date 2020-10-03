@@ -2,7 +2,7 @@
 
 kubectl apply -f https://download.elastic.co/downloads/eck/1.2.1/all-in-one.yaml
 
-kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
+# kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
 
 # Deploy: Elasticsearch cluster.
 cat <<EOF | kubectl apply -f -
