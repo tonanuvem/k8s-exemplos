@@ -184,6 +184,7 @@ spec:
             path: /var/lib/docker/containers
 EOF
 
+# https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-beat.html
 # kubectl get beat
 while [ $(kubectl get beat | grep green | wc -l) != '1' ]; do { printf .; sleep 1; } done
 kubectl get pods -o wide | grep fiap-beat-filebeat
