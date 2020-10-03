@@ -140,5 +140,75 @@ spec:
   type: NodePort
 EOF
 
+# Deploy Beats
+cat <<EOF | kubectl apply -f -
+apiVersion: beat.k8s.elastic.co/v1beta1
+kind: Beat
+metadata:
+  name: fiap
+spec:
+  type: filebeat
+  version: 7.9.2
+  elasticsearchRef:
+    name: fiap
+  config:
+    filebeat.inputs:
+    - type: container
+      paths:
+      - /var/log/containers/*.log
+  daemonSet:
+    podTemplate:
+      spec:
+        dnsPolicy: ClusterFirstWithHostNet
+        hostNetwork: true
+        securityContext:
+          runAsUser: 0
+        containers:
+        - name: filebeat
+          volumeMounts:
+          - name: varlogcontainers
+            mountPath: /var/log/containers
+          - name: varlogpods
+            mountPath: /var/log/pods
+          - name: varlibdockercontainers
+            mountPath: /var/lib/docker/containers
+        volumes:
+        - name: varlogcontainers
+          hostPath:
+            path: /var/log/containers
+        - name: varlogpods
+          hostPath:
+            path: /var/log/pods
+        - name: varlibdockercontainers
+          hostPath:
+            path: /var/lib/docker/containers
+EOF
+
+# kubectl get beat
+while [ $(kubectl get beat | grep green | wc -l) != '1' ]; do { printf .; sleep 1; } done
+kubectl get pods -o wide | grep fiap-beat-filebeat
+echo "   Verificando se achou o FILEBEAT no ElasticSearch usando a senha : $PASSWORD"
+kubectl run debug --image=yauritux/busybox-curl -it --rm --restart=Never -- curl -u "elastic:$PASSWORD" -k "https://fiap-es-http:9200/filebeat-*/_search"
+
+# Instalar Beats: AWS
+curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.9.2-amd64.deb
+sudo dpkg -i metricbeat-7.9.2-amd64.deb
+sudo mv /etc/metricbeat/metricbeat.yml /etc/metricbeat/metricbeat.bkp
+sudo cat >> /etc/metricbeat/metricbeat.yml << EOF
+output.elasticsearch:
+  hosts: ["fiap-es-http:9200"]
+  username: "elastic"
+  password: "PASSWORD"
+setup.kibana:
+  host: "fiap-kb-http:5601"
+  username: "elastic"
+  password: "PASSWORD"
+EOF
+
+sudo metricbeat modules enable kubernetes
+sudo metricbeat setup
+sudo service metricbeat start
+
+# Acessar UI Kibana
 IP=curl checkip.amazonaws.com
 echo "   Acessar UI Kibana https://$IP:32561 com usuario elastic e senha $SENHAELASTIC"
