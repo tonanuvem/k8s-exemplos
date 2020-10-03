@@ -85,7 +85,7 @@ elif [[ "$MODO" -eq 7 ]]; then
     helm delete konga
     kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
     kubectl delete sa aluno
-    kubectl delete crb aluno
+    kubectl delete clusterrolebindings aluno
     # DELETE 5
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/kafka_producer_consumer_deploy.yaml 
     helm delete kafka
