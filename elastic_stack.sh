@@ -65,20 +65,70 @@ kubectl get service fiap-kb-http
 echo "   Password do user elastic:"
 kubectl get secret fiap-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
 
-# Exemple to grow the cluster to three Elasticsearch nodes:
+# Deploy APM
 cat <<EOF | kubectl apply -f -
-apiVersion: elasticsearch.k8s.elastic.co/v1
-kind: Elasticsearch
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
 metadata:
-  name: fiap
+  name: apm-server-fiap
+  namespace: default
 spec:
   version: 7.9.2
-  nodeSets:
-  - name: default
-    count: 3
-    config:
-      node.master: true
-      node.data: true
-      node.ingest: true
-      node.store.allow_mmap: false
+  count: 1
+  elasticsearchRef:
+    name: fiap
+  kibanaRef:
+    name: fiap
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+EOF
+
+kubectl get apmservers
+kubectl get pods --selector='apm.k8s.elastic.co/name=apm-server-fiap'
+kubectl get service --selector='common.k8s.elastic.co/type=apm-server'
+kubectl get secret/apm-server-fiap-apm-token -o go-template='{{index .data "secret-token" | base64decode}}'
+
+# Deploy APP Client APM NodeJS (app-client-apm-nodejs)
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appclientapmnodejs
+  labels:
+    app: appclientapmnodejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appclientapmnodejs
+  template:
+    metadata:
+      labels:
+        app: appclientapmnodejs
+    spec:
+      containers:
+        - name: consumer
+          image: "tonanuvem/app-client-apm-nodejs"
+          env:
+            - name: APM
+              value: "apm-server-fiap-apm-http"
+          ports:
+            - name: http
+              containerPort: 3000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: appclientapmnodejs-service
+spec:
+  selector:
+    app: appclientapmnodejs
+  ports:
+    - protocol: "TCP"
+      port: 3000
+      targetPort: 3000
+      nodePort: 32300
+  type: NodePort
 EOF
