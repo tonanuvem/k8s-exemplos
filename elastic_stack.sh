@@ -44,6 +44,10 @@ metadata:
   name: fiap
 spec:
   version: 7.9.2
+  http:
+    service:
+      spec:
+        type: NodePort
   count: 1
   elasticsearchRef:
     name: fiap
@@ -62,7 +66,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: quickstart
+  name: fiap
 spec:
   version: 7.9.2
   nodeSets:
