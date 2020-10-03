@@ -63,7 +63,7 @@ kubectl expose deployment fiap-kb --type=NodePort --port=5601
 kubectl get service fiap-kb-http
 # Login as the elastic user. The password
 echo "   Password do user elastic:"
-SENHAELASTIC=kubectl get secret fiap-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo
+SENHAELASTIC=$(kubectl get secret fiap-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo)
 echo $SENHAELASTIC
 
 # Deploy APM
