@@ -1,6 +1,8 @@
 # iniciar ambiente:
 
-sh ~/environment/config-ubuntu/shift/iniciar.sh 
+cd ~/environment/config-ubuntu/shift/
+sh iniciar.sh
+cd ~/environment/k8s-exemplos/
 
 # conectar no master e configurar
 
