@@ -1,3 +1,7 @@
+# iniciar ambiente:
+
+sh ~/environment/config-ubuntu/shift/iniciar.sh 
+
 # conectar no master e configurar
 
 # ~/environment/ip | awk -Fv '{ if ( !($1 ~  "None") ) { print } }'
