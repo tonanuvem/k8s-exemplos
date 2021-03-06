@@ -1,5 +1,5 @@
 FROM infrastructureascode/aws-cli
-ENV KUBECTL_VERSION "1.19.21"
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
 RUN apk -v --no-cache --update add \
         curl \
         && \
