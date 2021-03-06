@@ -1,5 +1,6 @@
 FROM infrastructureascode/aws-cli
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
+# https://github.com/infrastructure-as-code/docker-aws-cli/blob/master/aws.sh
 WORKDIR /usr/local/bin/
 RUN apk -v --no-cache --update add \
         curl \
