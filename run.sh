@@ -34,7 +34,7 @@ elif [[ "$MODO" -eq 2 ]]; then
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-weaveworks-socks.yaml
     #kubectl create -f https://tonanuvem.github.io/k8s-exemplos/demo-loadbalancer-socks.yaml
     kubectl get svc -n sock-shop
-    kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
+    kubectl create -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc_loadbalancer.yml
     #kubectl get svc -n fiap-chat
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/deploy_fiap.yml
     kubectl create -f https://tonanuvem.github.io/k8s-exemplos/svc_fiap_gcp.yml
