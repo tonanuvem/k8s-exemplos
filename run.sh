@@ -70,6 +70,7 @@ elif [[ "$MODO" -eq 7 ]]; then
     # DELETAR 1 e 2
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/demo-nodeport-socks.yaml
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc.yml
+    kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/chat_deploy_svc_loadbalancer.yml
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/deploy_fiap.yml
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/svc_fiap.yml
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/demo-weaveworks-socks.yaml
