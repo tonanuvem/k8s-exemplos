@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: fiap-service
+spec:
+  selector:
+    app: fiappage
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+      nodePort: 31000
+  type: NodePort
