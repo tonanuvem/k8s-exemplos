@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiap-deployment
+  labels:
+    app: fiappage
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: fiappage
+  template:
+    metadata:
+      labels:
+        app: fiappage
+    spec:
+      containers:
+        - name: fiappage
+          image: "tonanuvem/fiap_page"
+          ports:
+            - name: http
+              containerPort: 80
