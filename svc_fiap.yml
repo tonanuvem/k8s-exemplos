@@ -4,7 +4,7 @@ metadata:
   name: fiap-service
 spec:
   selector:
-    app: fiapslackpage
+    app: fiappage
   ports:
     - protocol: "TCP"
       port: 80
