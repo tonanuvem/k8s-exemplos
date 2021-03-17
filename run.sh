@@ -63,7 +63,7 @@ elif [[ "$MODO" -eq 5 ]]; then
     kubectl get svc
 elif [[ "$MODO" -eq 6 ]]; then
     echo "   ELASTIC STACK: ELASTICSEARCH, KIBANA, APM & APP_CLIENT_APM_NODEJS"
-    sh elastic_stack.sh
+    sh elastic_apm.sh
     kubectl get svc    
 elif [[ "$MODO" -eq 7 ]]; then
     echo "- TENTANDO EXCLUIR TUDO"
