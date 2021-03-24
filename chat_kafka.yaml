@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: envkafka
+  namespace: default
+data:
+  WEBHOOK: "inserir"
+  TOPICO: "meu-topico"
+  HOST: "kafka"
+  PORTA: "9092"
+---
+# Exemplo de PDB 
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: producer-budget
+spec:
+  selector:
+    matchLabels:
+      app: producer
+  minAvailable: 2 # aqui estamos definindo no min 2, mas no Deploy está definido 1 replica. Qual configuração prevalece?
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+  labels:
+    app: producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+        - name: producer
+          image: "tonanuvem/kafka_producer"
+          ports:
+            - name: http
+              containerPort: 5001
+          env:
+            - name: CANAL
+              value: "#lab-produtor"
+            - name: WEBHOOK
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: WEBHOOK
+            - name: TOPICO
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: TOPICO
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: HOST
+            - name: PORTA
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: PORTA
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: producer-service
+spec:
+  selector:
+    app: producer
+  ports:
+    - protocol: "TCP"
+      port: 5001
+      targetPort: 5001
+      nodePort: 32500
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+  labels:
+    app: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: "tonanuvem/kafka_consumer"
+          env:
+            - name: CANAL
+              value: "#lab-consumidor"
+            - name: WEBHOOK
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: WEBHOOK
+            - name: TOPICO
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: TOPICO
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: HOST
+            - name: PORTA
+              valueFrom:
+                configMapKeyRef:
+                  name: envkafka
+                  key: PORTA
