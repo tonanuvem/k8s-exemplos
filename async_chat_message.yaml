@@ -1,3 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: async-chat-deployment
+  labels:
+    app: asyncfiapchat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asyncfiapchat
+  template:
+    metadata:
+      labels:
+        app: asyncfiapchat
+    spec:
+      containers:
+        - name: asyncfiapchat
+          image: "tonanuvem/chat:async"
+          ports:
+            - name: http
+              containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: async-chat-service
+spec:
+  selector:
+    app: asyncfiapchat
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+      nodePort: 32200
+  type: NodePort
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
