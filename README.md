@@ -83,11 +83,11 @@ Verificar todos os objetos do namespace sock-shop
 Opção 2: Rodando com istio-inject
 
 > kubectl create ns sock-shop
-<br>
+
 > kubectl label namespace sock-shop istio-injection=enabled --overwrite
-<br>
+
 > kubectl get namespace -L istio-injection
-<br>
+
 > kubectl apply -f https://tonanuvem.github.io/k8s-exemplos/demo-weaveworks-socks.yaml
 
 <hr>
