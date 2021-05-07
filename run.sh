@@ -101,7 +101,7 @@ elif [[ "$MODO" -eq 8 ]]; then
     # deletar apm
     # deletar kibana
     # deletar elasticsearch
-else echo "Voce precisa escolher 1 , 2 , 3, 4, 5, 6 ou 7."
+else echo "Voce precisa escolher 1 , 2 , 3, 4, 5, 6, 7 ou 8."
 fi
 echo ""
 kubectl get pod -o wide -n sock-shop
