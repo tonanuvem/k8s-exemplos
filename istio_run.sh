@@ -7,3 +7,6 @@ kubectl create ns sock-shop
 kubectl label namespace sock-shop istio-injection=enabled
 sleep 2
 kubectl get pod -n istio-system
+kubectl patch svc kiali -n istio-system -p '{"spec": {"type": "NodePort"}}' && kubectl get svc kiali -n istio-system
+kubectl patch svc prometheus -n istio-system -p '{"spec": {"type": "NodePort"}}' && kubectl get svc prometheus -n istio-system
+kubectl patch svc grafana -n istio-system -p '{"spec": {"type": "NodePort"}}' && kubectl get svc grafana -n istio-system
