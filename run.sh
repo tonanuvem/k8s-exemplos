@@ -15,7 +15,8 @@ echo "3) VOLUME PORTWORX: WORDPRESS & CLIENTES"
 echo "4) API GATEWAY: KONG & KONGA"
 echo "5) KAFKA: PRODUCER & CONSUMER"
 echo "6) ELASTIC STACK: ELASTICSEARCH, KIBANA, APM & APP_CLIENT_APM_NODEJS"
-echo "7) - DELETAR TUDO"
+echo "7) WEAVE SCOPE: VISUALIZAÇÃO DO CLUSTER"
+echo "8) - DELETAR TUDO"
 read MODO
 if [[ "$MODO" -eq 1 ]]; then
     echo "   NODEPORT:"
@@ -64,8 +65,11 @@ elif [[ "$MODO" -eq 5 ]]; then
 elif [[ "$MODO" -eq 6 ]]; then
     echo "   ELASTIC STACK: ELASTICSEARCH, KIBANA, APM & APP_CLIENT_APM_NODEJS"
     sh elastic_apm.sh
-    kubectl get svc    
+    kubectl get svc  
 elif [[ "$MODO" -eq 7 ]]; then
+    kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-service-type=NodePort&k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl get svc -n weave
+elif [[ "$MODO" -eq 8 ]]; then
     echo "- TENTANDO EXCLUIR TUDO"
     # DELETAR 1 e 2
     kubectl delete -f https://tonanuvem.github.io/k8s-exemplos/demo-nodeport-socks.yaml
