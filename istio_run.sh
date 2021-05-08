@@ -1,6 +1,7 @@
 curl -L https://istio.io/downloadIstio | sh - 
-cd istio-1.9.4 && export PATH=$PWD/bin:$PATH
-istioctl install --set profile=demo
+export PASTA=$(ls | grep istio-)
+cd $PASTA && export PATH=$PWD/bin:$PATH
+istioctl install -y --set profile=demo
 kubectl create -f samples/addons
 kubectl label namespace default istio-injection=enabled
 kubectl create ns sock-shop
