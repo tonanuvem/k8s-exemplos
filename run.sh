@@ -15,7 +15,7 @@ echo "3) VOLUME PORTWORX: WORDPRESS & CLIENTES"
 echo "4) API GATEWAY: KONG & KONGA"
 echo "5) KAFKA: PRODUCER & CONSUMER"
 echo "6) ELASTIC STACK: ELASTICSEARCH, KIBANA, APM & APP_CLIENT_APM_NODEJS"
-echo "7) WEAVE SCOPE: VISUALIZAÇÃO DO CLUSTER"
+echo "7) K8S Dashboarad & WEAVE SCOPE: VISUALIZAÇÃO DO CLUSTER"
 echo "8) - DELETAR TUDO"
 read MODO
 if [[ "$MODO" -eq 1 ]]; then
@@ -69,6 +69,9 @@ elif [[ "$MODO" -eq 6 ]]; then
 elif [[ "$MODO" -eq 7 ]]; then
     kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-service-type=NodePort&k8s-version=$(kubectl version | base64 | tr -d '\n')"
     kubectl get svc -n weave
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+    kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'
+    kubectl get svc kubernetes-dashboard -n kubernetes-dashboard
 elif [[ "$MODO" -eq 8 ]]; then
     echo "- TENTANDO EXCLUIR TUDO"
     # DELETAR 1 e 2
