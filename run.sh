@@ -108,6 +108,9 @@ elif [[ "$MODO" -eq 8 ]]; then
     # DELETE 6
     kubectl delete svc appclientapmnodejs-service
     kubectl delete deploy appclientapmnodejs
+    # DELETE 7
+    kubectl delete -f "https://cloud.weave.works/k8s/scope.yaml?k8s-service-type=NodePort&k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
     # deletar apm
     # deletar kibana
     # deletar elasticsearch
