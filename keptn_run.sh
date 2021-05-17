@@ -122,7 +122,7 @@ keptn add-resource --project=sockshop --stage=staging --service=carts --resource
 # Deploy a slow build version
 # Use the Keptn CLI to deploy a version of the carts service, which contains an artificial slowdown of 1 second in each request.
 keptn trigger delivery --project=sockshop --service=carts --image=docker.io/keptnexamples/carts --tag=0.12.2
-
+# Go ahead and verify that the slow build has reached your dev and staging environments by opening a browser for both environments
 echo ""
 kubectl get pods --all-namespaces | grep carts-
 echo ""
