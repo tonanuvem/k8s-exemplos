@@ -6,6 +6,10 @@
 # instalar cli do keptn
 curl -sL https://get.keptn.sh | KEPTN_VERSION=0.8.2 bash
 #keptn --help
+# alpine:
+#wget https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar
+#tar -zxvf 0.7.3_keptn-linux.tar
+#mv ./keptn /usr/local/bin/
 
 # instalar Keptn no cluster
 keptn install --endpoint-service-type=NodePort --use-case=continuous-delivery
