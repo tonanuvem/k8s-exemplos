@@ -55,9 +55,9 @@ keptn onboard service carts-db --project=sockshop --chart=./carts-db
 
 # Acessar o KEPTN BRIGDE
 kubectl patch svc bridge -n keptn -p '{"spec": {"type": "NodePort"}}' && kubectl get svc bridge -n keptn
-BRIGDE_PORT=$(kubectl get svc bridge -n keptn -o jsonpath='{.spec.ports[?(@.name=="http")].nodePort}')
+BRIGDE_PORT=$(kubectl get -n keptn svc bridge -o jsonpath='{.spec.ports[?()].nodePort}')
 KEPTN_ENDPOINT=http://${EXTERNAL_NODE_IP}:${BRIGDE_PORT}/
-echo "Acessar o Swagger (Openapi) $KEPTN_ENDPOINT"
+echo "Acessar o KEPTN: $KEPTN_ENDPOINT"
 echo ""
 keptn configure bridge --output
 echo ""
@@ -98,9 +98,40 @@ keptn configure monitoring prometheus --project=sockshop --service=carts
 
 # Acessar o PROMETHEUS
 kubectl patch svc prometheus-service -n keptn -p '{"spec": {"type": "NodePort"}}' && kubectl get svc prometheus-service -n keptn
-PROM_PORT=$(kubectl get svc prometheus-service -n keptn -o jsonpath='{.spec.ports.nodePort}')
+PROM_PORT=$(kubectl get -n keptn svc prometheus-service -o jsonpath='{.spec.ports[?()].nodePort}')
 PROM_ENDPOINT=http://${EXTERNAL_NODE_IP}:${PROM_PORT}/
-echo "Acessar o Swagger (Openapi) $PROM_ENDPOINT"
+echo "Acessar o Prometheus: $PROM_ENDPOINT"
 echo ""
 echo "\t\t Digite ENTER para continuar com o DEPLOY de um projeto de testes"
+read ENTER
+
+# Setup Prometheus SLI provider
+# During the evaluation of a quality gate, the Prometheus SLI provider is required that is implemented by an internal Keptn service, the prometheus-sli-service. 
+# This service will fetch the values for the SLIs that are referenced in an SLO configuration file.
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-sli-service/release-0.3.0/deploy/service.yaml
+# We are going to add the configuration for our SLIs in terms of an SLI file that maps the name of an indicator to a PromQL statement how to actually query it. 
+# Please make sure you are in the correct folder examples/onboarding-carts.
+cd ../../onboarding-carts
+keptn add-resource --project=sockshop --stage=staging --service=carts --resource=sli-config-prometheus-bg.yaml --resourceUri=prometheus/sli.yaml 
+
+# Set up the quality gate
+# This specification is described in a file called slo.yaml, which specifies a Service Level Objective (SLO) that should be met by a service.
+keptn add-resource --project=sockshop --stage=staging --service=carts --resource=slo-quality-gates.yaml --resourceUri=slo.yaml
+
+# DEPLOY de app com erro
+# Deploy a slow build version
+# Use the Keptn CLI to deploy a version of the carts service, which contains an artificial slowdown of 1 second in each request.
+keptn trigger delivery --project=sockshop --service=carts --image=docker.io/keptnexamples/carts --tag=0.12.2
+
+echo ""
+kubectl get pods --all-namespaces | grep carts-
+echo ""
+echo "sockshop-dev : "
+kubectl patch svc carts -n sockshop-dev -p '{"spec": {"type": "NodePort"}}' && kubectl get svc carts -n sockshop-dev
+echo "sockshop-staging : "
+kubectl patch svc carts -n sockshop-staging -p '{"spec": {"type": "NodePort"}}' && kubectl get svc carts -n sockshop-staging
+echo "sockshop-production : "
+kubectl patch svc carts -n sockshop-production -p '{"spec": {"type": "NodePort"}}' && kubectl get svc carts -n sockshop-production
+echo ""
+echo "\t\t Acessar os ambientes de DEV, STAGING e PROD. Digite ENTER para continuar com monitoração via PROMETHEUS"
 read ENTER
