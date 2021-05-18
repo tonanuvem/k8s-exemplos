@@ -1,6 +1,7 @@
 # pre-req : cluster + istio
 # minikube addons enable ingress ingress-dns
 
+# https://tutorials.keptn.sh/tutorials/keptn-multistage-qualitygates-08/index.html?index=..%2F..index#0
 # https://tutorials.keptn.sh/tutorials/keptn-full-tour-prometheus-08/index.html?index=..%2F..index#12
 
 # instalar cli do keptn
