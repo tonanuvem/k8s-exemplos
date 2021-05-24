@@ -6,7 +6,7 @@ sh ~/k8s-exemplos/istio_run.sh
 kubectl create ns sock-shop
 kubectl label namespace sock-shop istio-injection=enabled
 # Executar a stack:
-kubectl create -f ~/k8s-exemplos/microservice-demo-weaveworks-socks.yaml
+kubectl create -f ~/k8s-exemplos/demo-weaveworks-socks.yaml
 # Verificar os serviços em execução no namespace sock-shop:
 kubectl get svc -n sock-shop
 # Front end Sock Shop:
