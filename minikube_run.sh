@@ -6,3 +6,4 @@ kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"ty
 export INGRESS_HOST=$(curl -s checkip.amazonaws.com)
 export INGRESS_PORT=$(kubectl -n kubernetes-dashboard get service kubernetes-dashboard -o jsonpath='{.spec.ports[?()].nodePort}')
 echo "Acessar Minikube Dashboard: http://$INGRESS_HOST:$INGRESS_PORT"
+echo 
