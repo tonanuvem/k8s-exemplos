@@ -11,7 +11,7 @@ kubectl patch svc prometheus -n istio-system -p '{"spec": {"type": "NodePort"}}'
 kubectl patch svc grafana -n istio-system -p '{"spec": {"type": "NodePort"}}' && kubectl get svc grafana -n istio-system
 # Acesso ao Kiali
 export INGRESS_HOST=$(curl -s checkip.amazonaws.com)
-export INGRESS_PORT=$(kubectl -n istio-system get service kiali -o jsonpath='{.spec.ports[?()].nodePort}')
+export INGRESS_PORT=$(kubectl -n istio-system get service kiali -o jsonpath='{.spec.ports[?(@.name=="http")].nodePort}')
 echo "Acessar Istio Kiali: http://$INGRESS_HOST:$INGRESS_PORT"
 echo ""
 # Acesso ao Grafana
