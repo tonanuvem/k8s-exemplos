@@ -1,7 +1,13 @@
 # Executar K8S (minikube):
 sh ~/k8s-exemplos/minikube_run.sh
+echo "Digite ENTER para continuar (configurar Istio)"
+read ENTER
+echo ""
 # Executar Istio:
 sh ~/k8s-exemplos/istio_run.sh
+echo "Digite ENTER para continuar (configurar eCommerce)"
+read ENTER
+echo ""
 # Criar namespace e inserir istio side car:
 kubectl create ns sock-shop
 kubectl label namespace sock-shop istio-injection=enabled
