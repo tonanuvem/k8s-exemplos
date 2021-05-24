@@ -1,5 +1,6 @@
 # Executar K8S (minikube):
 sh ~/k8s-exemplos/minikube_run.sh
+echo 
 echo "Digite ENTER para continuar (configurar Istio)"
 read ENTER
 echo ""
