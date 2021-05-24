@@ -9,3 +9,7 @@ kubectl label namespace sock-shop istio-injection=enabled
 kubectl create -f microservice-demo-weaveworks-socks.yaml
 # Verificar os serviços em execução no namespace sock-shop:
 kubectl get svc -n sock-shop
+# Front end Sock Shop:
+export INGRESS_HOST=$(curl -s checkip.amazonaws.com)
+export INGRESS_PORT=$(kubectl -n sock-shop get service front-end -o jsonpath='{.spec.ports[?()].nodePort}')
+echo "Acessar e-Commerce Front-end: http://$INGRESS_HOST:$INGRESS_PORT"
