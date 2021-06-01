@@ -24,3 +24,4 @@ echo "Solicitar SECRET : kubectl -n argocd get secret argocd-initial-admin-secre
 #kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo ""
 echo ""
 echo ""
+#watch -n 0,2 "curl -X POST 'http://localhost:80/api/bets' --data-raw '{}' -s -w '\n%{time_total}s %{http_code}\n' "
