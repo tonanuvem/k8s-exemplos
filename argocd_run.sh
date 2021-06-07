@@ -17,7 +17,7 @@ export INGRESS_PORT=$(kubectl get svc argocd-server -n argocd -o jsonpath='{.spe
 echo "Acessar ARGOCD: http://$INGRESS_HOST:$INGRESS_PORT"
 echo ""
 export INGRESS_PORT=$(kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
-echo "Acessar ARGOCD: http://$INGRESS_HOST:$INGRESS_PORT"
+echo "Acessar BETS (app demo): http://$INGRESS_HOST:$INGRESS_PORT"
 echo ""
 # get secret
 echo "Solicitar SECRET : kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d && echo """
