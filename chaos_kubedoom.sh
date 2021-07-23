@@ -81,6 +81,7 @@ apt-get update && \
     curl -sSL https://get.docker.com/ | sh
 
 apt-get install -y xtightvnviewer
+sudo ln -s /usr/bin/vncviewer /usr/bin/vnc-viewer
 
 # https://hub.docker.com/r/nidup/starcraft/
 # Pull the image (from the host):
