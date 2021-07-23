@@ -85,6 +85,28 @@ apt-get install -y xtightvnviewer
 # https://hub.docker.com/r/nidup/starcraft/
 # Pull the image (from the host):
 docker pull nidup/starcraft:v118
+
+# https://github.com/Games-and-Simulations/sc-docker/blob/master/INSTALL.md
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+# add docker repository
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# install docker
+sudo apt-get update
+sudo apt install -y docker-ce=17.09.0~ce-0~ubuntu
+# Make sure you can run docker without sudo
+# (based on https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user)
+sudo usermod -aG docker $USER
+
+# pre-req python
+docker network create sc_net
+sudo add-apt-repository ppa:jonathonf/python-3.6
+sudo apt-get update
+sudo apt-get install -y python3.6
+curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
+sudo pip install scbw
+scbw.play --install
 # Run the image (from the host):
 docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt seccomp=unconfined nidup/starcraft:v118 bash
 # Launch the game (from the image):
