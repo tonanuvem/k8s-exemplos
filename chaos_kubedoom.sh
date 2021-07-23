@@ -12,12 +12,11 @@ sudo apt-get -y install xfce4 xfce4-goodies tightvncserver xfonts-base
 # https://github.com/lucky-sideburn/KubeInvaders
 
 helm repo add kubeinvaders https://lucky-sideburn.github.io/helm-charts/
-
 kubectl create namespace kubeinvaders
-
 helm install kubeinvaders --set-string target_namespace="namespace1\,namespace2" \
 -n kubeinvaders kubeinvaders/kubeinvaders --set ingress.hostName=kubeinvaders.io --set image.tag=v1.7
 
+# Kata: 
 # Install KubeInvaders
 # Create a namespace for the game application.
 kubectl create namespace kubeinvaders
@@ -33,6 +32,20 @@ helm install kubeinvaders ./helm-charts/kubeinvaders \
 --set route_host=2886795298-30016-jago01.environments.katacoda.com
 # Set NodePort value
 kubectl patch service kubeinvaders -n kubeinvaders --type='json' --patch='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30016}]'
+
+# First, add a few simple NGINX Pods to the default namespace.
+kubectl create deployment nginx --image=nginx
+kubectl scale deployment/nginx --replicas=
+# Next, add a few more Pods (aliens) to a second namespace.
+kubectl create namespace more-apps
+kubectl create deployment ghost --namespace more-apps --image=ghost:3.11.0-alpine
+kubectl scale deployment/ghost --namespace more-apps --replicas=4
+# Label the Deployments and Pods so you can watch their status.
+kubectl label deployment,pod app-purpose=chaos -l app=nginx --namespace default
+kubectl label deployment,pod app-purpose=chaos -l app=ghost --namespace more-apps
+# In the next step, kill and observe the aliens!
+
+
 
 # instalar Kube Doom
 # https://github.com/Alynder/kubedoom
