@@ -67,11 +67,18 @@ kubectl get pod -n kubedoom
 
 # Executar interface web novnc para conectar
 # https://github.com/fcwu/docker-ubuntu-vnc-desktop
+# https://devopscube.com/run-docker-in-docker/
 
 docker network create doom
-docker run --name ubt-desk -p 6080:80 -v /dev/shm:/dev/shm -d dorowu/ubuntu-desktop-lxde-vnc
-docker exec -ti ubt-desk "apt update && apt-get install "
+docker run --name ubt-desk -p 6080:80 -v /var/run/docker.sock:/var/run/docker.sock -v /dev/shm:/dev/shm -v /usr/games:/usr/games -d dorowu/ubuntu-desktop-lxde-vnc
+docker exec -ti ubt-desk "apt update"
 #docker run -p 6080:80 -p 5900:5900 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
+
+apt-get update && \
+    apt-get -qy full-upgrade && \
+    apt-get install -qy curl && \
+    apt-get install -qy curl && \
+    curl -sSL https://get.docker.com/ | sh
 
 # https://hub.docker.com/r/nidup/starcraft/
 # Pull the image (from the host):
