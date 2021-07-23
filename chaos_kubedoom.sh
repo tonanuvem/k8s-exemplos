@@ -5,6 +5,8 @@
 sudo apt-get update
 sudo apt-get -y install xfce4 xfce4-goodies tightvncserver xfonts-base
 
+# https://chaos-mesh.org/interactive-tutorial
+
 # https://www.katacoda.com/kuber-ru/courses/kubernetes-chaos/kubeinvaders
 # instalar kubeinvaders
 # https://github.com/lucky-sideburn/KubeInvaders
