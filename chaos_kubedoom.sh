@@ -80,6 +80,8 @@ apt-get update && \
     apt-get install -qy curl && \
     curl -sSL https://get.docker.com/ | sh
 
+apt-get install -y xtightvnviewer
+
 # https://hub.docker.com/r/nidup/starcraft/
 # Pull the image (from the host):
 docker pull nidup/starcraft:v118
