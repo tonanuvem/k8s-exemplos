@@ -72,3 +72,11 @@ docker network create doom
 docker run --name ubt-desk -p 6080:80 -v /dev/shm:/dev/shm -d dorowu/ubuntu-desktop-lxde-vnc
 docker exec -ti ubt-desk "apt update && apt-get install "
 #docker run -p 6080:80 -p 5900:5900 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
+
+# https://hub.docker.com/r/nidup/starcraft/
+# Pull the image (from the host):
+docker pull nidup/starcraft:v118
+# Run the image (from the host):
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt seccomp=unconfined nidup/starcraft:v118 bash
+# Launch the game (from the image):
+wine ~/.wine/drive_c/Program\ Files\ \(x86\)/StarCraft/StarCraft.exe
