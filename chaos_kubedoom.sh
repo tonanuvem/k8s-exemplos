@@ -9,11 +9,14 @@ sudo apt-get -y install xfce4 xfce4-goodies tightvncserver xfonts-base
 # https://github.com/Alynder/kubedoom
 # https://opensource.com/article/21/6/kube-doom
 
-git clone git@github.com:Alynder/kubedoom.git
+git clone https://github.com/Alynder/kubedoom.git
 cd kubedoom/helm/
+kubectl create ns kubedoom
 helm install kubedoom kubedoom/ -n kubedoom
-#kubectl get pods -n kubedoom
-#kubectl port-forward  kubedoom-kubedoom-chart-676bcc5c9c-xkwpp 5900:5900 -n kubedoom &
+kubectl get svc -n kubedoom
+kubectl get pod -n kubedoom
+# POD=
+#kubectl port-forward kubedoom-kubedoom-chart-676bcc5c9c-xkwpp 5900:5900 -n kubedoom &
 #vncviewer viewer localhost:5900
 
 # ou rodar com o docker:
