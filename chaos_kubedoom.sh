@@ -20,11 +20,11 @@ kubectl get pod -n kubedoom
 #vncviewer viewer localhost:5900
 
 # ou rodar com o docker:
-# docker run -p5901:5900 --net=host -v ~/.kube:/root/.kube --rm -it --name kubedoom storaxdev/kubedoom:0.5.0
+# docker run -p5901:5900 --net=host -v ~/.kube:/root/.kube --rm -it --name kubedoom -d storaxdev/kubedoom:0.5.0
 
 
 # Executar interface web novnc para conectar
 # https://github.com/fcwu/docker-ubuntu-vnc-desktop
 
-docker run -p 6080:80 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
+docker run -p 6080:80 -v /dev/shm:/dev/shm -d dorowu/ubuntu-desktop-lxde-vnc
 #docker run -p 6080:80 -p 5900:5900 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
