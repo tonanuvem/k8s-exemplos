@@ -69,8 +69,15 @@ kubectl get pod -n kubedoom
 # https://github.com/fcwu/docker-ubuntu-vnc-desktop
 # https://devopscube.com/run-docker-in-docker/
 
+# sound no vnc
+sudo modprobe snd-aloop index=2
+docker run --name ubt-desk-som -it --rm -p 6070:80 -v /var/run/docker.sock:/var/run/docker.sock -v /dev/shm:/dev/shm -v /usr/games:/usr/games  --device /dev/snd -e ALSADEV=hw:2,0 -d dorowu/ubuntu-desktop-lxde-vnc
+
+
 docker network create doom
-docker run --name ubt-desk -p 6080:80 -v /var/run/docker.sock:/var/run/docker.sock -v /dev/shm:/dev/shm -v /usr/games:/usr/games -d dorowu/ubuntu-desktop-lxde-vnc
+docker run --name ubt-desk --rm -p 6080:80 -v /var/run/docker.sock:/var/run/docker.sock -v /dev/shm:/dev/shm -v /usr/games:/usr/games -d dorowu/ubuntu-desktop-lxde-vnc
+
+
 docker exec -ti ubt-desk "apt update"
 #docker run -p 6080:80 -p 5900:5900 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
 
@@ -108,6 +115,11 @@ sudo apt-get install -y python3.6
 curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
 sudo pip install scbw
 scbw.play --install
+
+# run local
+scbw.play --bots "PurpleWave" --human
+
+
 # Run the image (from the host):
 docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --security-opt seccomp=unconfined nidup/starcraft:v118 bash
 # Launch the game (from the image):
