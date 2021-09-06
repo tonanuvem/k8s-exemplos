@@ -13,7 +13,8 @@ export IP=$(curl -s checkip.amazonaws.com)
 export PORT=$(kubectl -n kong get service kong -o jsonpath='{.spec.ports[?(@.name=="http-admin")].nodePort}')
 
 # habilitar dashboard : https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+#kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
 
 # configurar rota para o dashboard
 printf "\n\n"
