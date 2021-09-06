@@ -2,6 +2,10 @@
 
 <li> <b>PARTE 1:</b>
 
+Exemplo para executar sem fazer o download do repo:
+  
+> curl -L https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master/minikube_run.sh | sh -
+
 Download dos arquivos que serão usados para fazer o Deployment no K8S e criar o serviço do tipo NodePort (usaremos no minikube)
 
 > git clone https://github.com/tonanuvem/k8s-slackpage.git
