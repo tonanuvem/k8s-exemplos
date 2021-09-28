@@ -16,5 +16,10 @@ microk8s kubectl get nodes
 #Port forward  the K8S Dashboard port 443 to port 10443 onto the EC2.
 #microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0 &
 
+# setando o dominio
+export INGRESS_HOST=$(curl checkip.amazonaws.com)
+export INGRESS_DOMAIN=${INGRESS_HOST}.nip.io
+echo $INGRESS_DOMAIN
+
 # instalando kubeflow:
-microk8s enable kubeflow --bundle lite --password admin
+microk8s enable kubeflow --bundle lite --password admin --hostname ${INGRESS_HOST}
