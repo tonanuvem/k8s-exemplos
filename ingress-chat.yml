@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-chat
+spec:
+  rules:
+  - host: chat.67.202.34.208.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: chat-service
+            port: 
+              number: 80
+  ingressClassName: public
