@@ -4,7 +4,7 @@ metadata:
   name: ingress-chat
 spec:
   rules:
-  - host: chat.67.202.34.208.nip.io
+  - host: chat.*
     http:
       paths:
       - path: /
