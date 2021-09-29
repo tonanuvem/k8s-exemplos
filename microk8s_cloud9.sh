@@ -14,7 +14,8 @@ export INGRESS_DOMAIN=${INGRESS_HOST}.nip.io
 echo $INGRESS_DOMAIN
 
 # K8S Dashboard
-microk8s enable dns dashboard ingresss metallb:${INGRESS_HOST}-${INGRESS_HOST}
+microk8s enable dns ingresss metallb:${INGRESS_HOST}-${INGRESS_HOST}
+microk8s enable dashboard
 #Get the token for the default user
 #token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
 #microk8s kubectl -n kube-system describe secret $token
