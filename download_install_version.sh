@@ -1,7 +1,9 @@
+#!/bin/bash
+
 # https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install
 
 echo "Digite qual uma versão específica (exemplos: 1.17.11 ou 1.20.6)"
-READ VERSAO
+read VERSAO
 
 curl -s "https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubectl"
 curl -s "https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubeadm"
