@@ -1,7 +1,7 @@
 # executar: bash <$(curl -s URL)
 #
 #sudo minikube start --vm-driver=none --kubernetes-version=v1.17.11 --apiserver-ips=$(curl checkip.amazonaws.com)
-sudo minikube start --vm-driver=none --apiserver-ips=$(curl checkip.amazonaws.com)
+minikube start --apiserver-ips=$(curl checkip.amazonaws.com)
 sudo chown -R $USER $HOME/.kube
 sudo chown -R $USER $HOME/.minikube
 sudo chmod -R u+wrx $HOME/.minikube
