@@ -5,9 +5,9 @@
 echo "Digite qual uma versão específica (exemplos: 1.17.11 ou 1.20.6)"
 read VERSAO
 
-curl -s "https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubectl"
-curl -s "https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubeadm"
-curl -s "https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubelet"
+wget https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubectl
+wget https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubeadm
+wget https://storage.googleapis.com/kubernetes-release/release/$VERSAO/bin/linux/amd64/kubelet
 
 chmod +x kubectl
 chmod +x kubeadm
