@@ -13,6 +13,9 @@ kubectl create namespace kubernetes-dashboard
 # https://github.com/kubernetes/dashboard/blob/master/aio/deploy/helm-chart/kubernetes-dashboard/values.yaml
 helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard -n kubernetes-dashboard --set=service.type=NodePort,service.nodePort=32100,protocolHttp=true,metricsScraper.enabled=true,metrics-server.enabled=true,resources.limits.cpu=200m
 
+# https://github.com/kubernetes/dashboard/issues/4179
+kubectl apply -f https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master/dashboard_permission.yml
+
 # kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'
 kubectl get svc kubernetes-dashboard -n kubernetes-dashboard
 export INGRESS_PORT=$(kubectl -n kubernetes-dashboard get service kubernetes-dashboard -o jsonpath='{.spec.ports[?()].nodePort}')
