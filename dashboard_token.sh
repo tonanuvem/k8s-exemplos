@@ -24,8 +24,8 @@ echo "Acessar K8S Dashboard: http://$INGRESS_HOST:$INGRESS_PORT"
     
 # Kubernetes dashboard access token.
 
-SECRET_RESOURCE=$(kubectl get secrets -n kube-system -o name | grep dash-kubernetes-dashboard-token)
-ENCODED_TOKEN=$(kubectl get $SECRET_RESOURCE -n kube-system -o=jsonpath='{.data.token}')
+SECRET_RESOURCE=$(kubectl get secrets -A -o name | grep kubernetes-dashboard-token)
+ENCODED_TOKEN=$(kubectl get $SECRET_RESOURCE -n kubernetes-dashboard -o=jsonpath='{.data.token}')
 export TOKEN=$(echo $ENCODED_TOKEN | base64 --decode)
 echo ""
 echo "--- Copy and paste this token for dashboard access ---"
