@@ -46,8 +46,8 @@ helm repo update
 helm install ingress-controller ingress-nginx/ingress-nginx --version 4.0.18 --namespace nginx
 
 # Caddy : proxy para as portas 80 e 443:
-
-cat <<EOF | sudo tee Caddyfile
+mkdir caddy
+cat <<EOF | sudo tee caddy/Caddyfile
 :80 {
         # Set this path to your site's directory.
         root * /usr/share/caddy
@@ -75,7 +75,7 @@ cat <<EOF | sudo tee Caddyfile
         # php_fastcgi localhost:9000
 }
 EOF
-docker run -d -p 80:80 -p 80:80 -v ./Caddyfile:/etc/caddy/Caddyfile caddy
+docker run -d -p 80:80 -p 80:80 -v caddy:/etc/caddy caddy
 
 # Lambda Dynamic DNS CONFIG:
 # https://github.com/awslabs/route53-dynamic-dns-with-lambda
