@@ -75,7 +75,7 @@ cat <<EOF | sudo tee caddy/Caddyfile
         # php_fastcgi localhost:9000
 }
 EOF
-docker run -d -p 80:80 -p 80:80 -v caddy:/etc/caddy caddy
+docker run -d -p 80:80 -p 443:443 -v caddy:/etc/caddy caddy
 
 # Lambda Dynamic DNS CONFIG:
 # https://github.com/awslabs/route53-dynamic-dns-with-lambda
