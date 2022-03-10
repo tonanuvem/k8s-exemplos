@@ -7,5 +7,5 @@
 # Helm Repository
 helm repo add nginx-stable https://helm.nginx.com/stable
 helm repo update
-
+kubectl create ns nginx
 helm install ingress-controller nginx-stable/nginx-ingress --namespace nginx
