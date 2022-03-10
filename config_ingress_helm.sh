@@ -43,7 +43,7 @@ kubectl create ns nginx
 # Chat Kuberneter
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm install ingress-controller ingress-nginx/ingress-nginx --version 4.0.18 --namespace nginx
+helm install ingress-controller --set controller.service.nodePorts.http=32080 --set controller.service.nodePorts.https=32443 ingress-nginx/ingress-nginx --version 4.0.18 --namespace nginx
 
 # Caddy : proxy para as portas 80 e 443:
 mkdir caddy
