@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Verificar esse artigo depois:
+# https://alesnosek.com/blog/2017/02/14/accessing-kubernetes-pods-from-outside-of-the-cluster/
+
 # Load Balancer : Metal LB : https://metallb.universe.tf/installation/
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
