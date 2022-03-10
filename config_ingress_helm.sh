@@ -30,10 +30,17 @@ kubectl apply -f configlb.yml
 # https://kubernetes.github.io/ingress-nginx/deploy/
 # Helm Repository
 
-helm repo add nginx-stable https://helm.nginx.com/stable
-helm repo update
 kubectl create ns nginx
-helm install ingress-controller nginx-stable/nginx-ingress --namespace nginx
+
+# Chart NGINX
+#helm repo add nginx-stable https://helm.nginx.com/stable
+#helm repo update
+#helm install ingress-controller nginx-stable/nginx-ingress --namespace nginx
+
+# Chat Kuberneter
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-controller ingress-nginx/ingress-nginx --version 4.0.18 --namespace nginx
 
 # Lambda Dynamic DNS CONFIG:
 # https://github.com/awslabs/route53-dynamic-dns-with-lambda
