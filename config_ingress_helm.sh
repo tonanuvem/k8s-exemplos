@@ -79,3 +79,4 @@ docker run -d -p 80:80 -p 443:443 -v caddy:/etc/caddy caddy
 
 # Lambda Dynamic DNS CONFIG:
 # https://github.com/awslabs/route53-dynamic-dns-with-lambda
+# https://github.com/gfitzp/route53-dynamic-dns-with-lambda (updated)
