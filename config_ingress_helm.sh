@@ -83,7 +83,7 @@ docker run -d -p 80:80 -p 443:443 -v caddy:/etc/caddy caddy
 echo "Digite seu NOME para ser usado no DNS e INGRESS"
 read NOME
 
-# curl -X POST -H "x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28" -H "accept: */*" -H "Content-Type: application/json" -d '{"mode": "request", "hostname": "'$NOME'", "ip": "$NODE"}' https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request
+curl -X POST -H "x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28" -H "accept: */*" -H "Content-Type: application/json" -d '{"mode": "request", "hostname": "'$NOME'", "ip": "$NODE"}' https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request
 
 # Exemplos:
 # POST:
