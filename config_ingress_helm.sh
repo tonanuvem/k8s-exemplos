@@ -10,7 +10,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manif
 # Configura o IP de Load Balancer como sendo o IP do MASTER:
 # https://kubernetes.github.io/ingress-nginx/deploy/baremetal/
 
-cat <<EOF | sudo tee configlb.yml
+cat <<EOF | sudo tee lbconfig.yml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -26,7 +26,7 @@ data:
 EOF
 NODE=$(curl checkip.amazonaws.com)
 sed -i 's|INSERIR_IP|'$NODE'|' configlb.yml
-kubectl apply -f configlb.yml
+kubectl apply -f lbconfig.yml
 
 # script para colocar Ingress Controller NGINX utilizando Helm :
 # https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/
