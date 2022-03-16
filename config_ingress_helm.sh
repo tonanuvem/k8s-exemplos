@@ -80,10 +80,12 @@ docker run -d -p 80:80 -p 443:443 -v caddy:/etc/caddy caddy
 # Lambda Dynamic DNS CONFIG:
 # https://github.com/awslabs/route53-dynamic-dns-with-lambda
 # https://github.com/gfitzp/route53-dynamic-dns-with-lambda (updated)
-
+print("Digite seu NOME para ser usado no DNS e INGRESS")
+read NOME
 # Exemplos:
 # POST:
 # curl -X POST "https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request" -H 'x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28' "accept: */*" -H "Content-Type: application/json" -d "{ \"mode\": \"request\", \"hostname\": \"$HOST\", \"ip\": \"3.235.243.1\"}"
 # curl -X POST -H "x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28" -H "accept: */*" -H "Content-Type: application/json" -d "{ "mode": "request", "hostname": "$HOST", "ip": "3.235.243.1"}"  https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request
+# curl -X POST -H "x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28" -H "accept: */*" -H "Content-Type: application/json" -d '{"mode": "request", "hostname": "$NOME", "ip": "$NODE"}' https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request
 # GET:
 # curl -q --ipv4 -s -H 'x-api-key: iOxMtGsGBnElIcXQSbIX9duLK0hf3Yn78rkaVx28' "https://hnmu53wmi8.execute-api.us-east-1.amazonaws.com/prod/dnspost-request?mode=request&hostname=$HOST&ip=3.235.243.1"
