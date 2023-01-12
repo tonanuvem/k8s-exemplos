@@ -210,7 +210,9 @@ spec:
 EOF
 
 
-#echo ""
+echo ""
+echo " -- "
+echo ""
 # Acesso ao Kiali
 echo " Acessar Istio Kiali: http://kiali.$INGRESS_DOMAIN"
 echo ""
