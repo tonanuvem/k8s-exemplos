@@ -12,7 +12,7 @@ kubectl patch svc grafana -n istio-system -p '{"spec": {"type": "LoadBalancer"}}
 # Aguardando os IPs Externos
 echo ""
 echo "Aguardando os IPs Externos dos serviços (K8S LoadBalancer)"
-while [ $(kubectl get service kkiali -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
+while [ $(kubectl get service kiali -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
 export IP_KIALI=$(kubectl get service kiali -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
 echo " IP_externo KIALI OK"
 while [ $(kubectl get service grafana -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
