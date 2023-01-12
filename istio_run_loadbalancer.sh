@@ -8,10 +8,11 @@ sleep 2
 kubectl get pod -n istio-system
 
 # Aguardando o IP Externo
-#echo ""
+echo ""
 echo "Aguardando o IP Externo do Gateway (Ingress)"
 while [ $(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
 export INGRESS_DOMAIN=$(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }').nip.io
+echo "INGRESS_DOMAIN = $INGRESS_DOMAIN"
 
 # Utilizar o objeto Gateway (Ingress) para limitar o uso dos IPs publicos
 # https://istio.io/latest/docs/tasks/observability/gateways/#option-2-insecure-access-http
