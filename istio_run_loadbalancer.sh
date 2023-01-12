@@ -12,6 +12,7 @@ echo ""
 echo "Aguardando o IP Externo do Gateway (Ingress)"
 while [ $(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
 export INGRESS_DOMAIN=$(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }').nip.io
+echo ""
 echo "INGRESS_DOMAIN = $INGRESS_DOMAIN"
 
 # Utilizar o objeto Gateway (Ingress) para limitar o uso dos IPs publicos
