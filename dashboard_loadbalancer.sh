@@ -14,10 +14,10 @@ kubectl apply -f https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master
 kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl get svc kubernetes-dashboard -n kubernetes-dashboard
 echo ""
-echo "Aguardando o IP Externo do K8S LoadBalancer"
+echo "Aguardando o IP Externo do serviço (K8S LoadBalancer)"
 while [ $(kubectl get service kubernetes-dashboard -n kubernetes-dashboard -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
 export IP=$(kubectl get service kubernetes-dashboard -n kubernetes-dashboard -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
-
+echo ""
 echo ""
 echo "Acessar K8S Dashboard: https://$IP"
 echo ""
