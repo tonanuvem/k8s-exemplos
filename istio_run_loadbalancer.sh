@@ -7,107 +7,212 @@ kubectl label namespace default istio-injection=enabled
 sleep 2
 kubectl get pod -n istio-system
 
-# Utilizar o objeto Gateway do Ingress para limitar o uso dos IPs publicos
-kubectl apply -f - <<EOF
+# Aguardando o IP Externo
+#echo ""
+echo "Aguardando o IP Externo do Gateway (Ingress)"
+while [ $(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
+export INGRESS_DOMAIN=$(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }').nip.io
+
+# Utilizar o objeto Gateway (Ingress) para limitar o uso dos IPs publicos
+# https://istio.io/latest/docs/tasks/observability/gateways/#option-2-insecure-access-http
+
+# 1. Apply the following configuration to expose Grafana:
+cat <<EOF | kubectl apply -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: ingress-gateway
+  name: grafana-gateway
   namespace: istio-system
 spec:
   selector:
-    istio: ingressgateway # use Istio default gateway implementation
+    istio: ingressgateway
   servers:
   - port:
       number: 80
-      name: http
+      name: http-grafana
       protocol: HTTP
     hosts:
-    - "*"
+    - "grafana.${INGRESS_DOMAIN}"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: kiali
+  name: grafana-vs
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+  - "grafana.${INGRESS_DOMAIN}"
   gateways:
-  - ingress-gateway
+  - grafana-gateway
   http:
-  - match:
-    - uri:
-        prefix: /kiali
-    route:
+  - route:
     - destination:
+        host: grafana
         port:
-          number: 20001
-        host: kiali.istio-system.svc.cluster.local
+          number: 3000
 ---
 apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
+kind: DestinationRule
 metadata:
   name: grafana
   namespace: istio-system
 spec:
-  hosts:
-  - "*"
-  gateways:
-  - ingress-gateway
-  http:
-  - match:
-    - uri:
-        prefix: /grafana
-    route:
-    - destination:
-        port:
-          number: 3000
-        host: grafana.istio-system.svc.cluster.local
+  host: grafana
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF
+
+# 2. Apply the following configuration to expose Kiali:
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kiali-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-kiali
+      protocol: HTTP
+    hosts:
+    - "kiali.${INGRESS_DOMAIN}"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: prometheus
+  name: kiali-vs
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+  - "kiali.${INGRESS_DOMAIN}"
   gateways:
-  - ingress-gateway
+  - kiali-gateway
   http:
-  - match:
-    - uri:
-        prefix: /prometheus
-    route:
+  - route:
     - destination:
+        host: kiali
         port:
-          number: 9090
-        host: prometheus.istio-system.svc.cluster.local
+          number: 20001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  host: kiali
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
 EOF
 
-#kubectl patch svc kiali -n istio-system -p '{"spec": {"type": "LoadBalancer"}}' && kubectl get svc kiali -n istio-system
-#kubectl patch svc prometheus -n istio-system -p '{"spec": {"type": "LoadBalancer"}}' && kubectl get svc prometheus -n istio-system
-#kubectl patch svc grafana -n istio-system -p '{"spec": {"type": "LoadBalancer"}}' && kubectl get svc grafana -n istio-system
+# 3. Apply the following configuration to expose Prometheus:
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: prometheus-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-prom
+      protocol: HTTP
+    hosts:
+    - "prometheus.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "prometheus.${INGRESS_DOMAIN}"
+  gateways:
+  - prometheus-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus
+        port:
+          number: 9090
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: prometheus
+  namespace: istio-system
+spec:
+  host: prometheus
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF
 
-# Aguardando os IPs Externos
-#echo ""
-echo "Aguardando os IPs Externos dos serviços (K8S LoadBalancer)"
-while [ $(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
-export IP=$(kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
+# 4. Apply the following configuration to expose the tracing service:
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: tracing-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-tracing
+      protocol: HTTP
+    hosts:
+    - "tracing.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tracing-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "tracing.${INGRESS_DOMAIN}"
+  gateways:
+  - tracing-gateway
+  http:
+  - route:
+    - destination:
+        host: tracing
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tracing
+  namespace: istio-system
+spec:
+  host: tracing
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF
 
-# Não utilizamos LB
-#while [ $(kubectl get service kiali -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
-#export IP_KIALI=$(kubectl get service kiali -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
-#echo " IP_externo KIALI OK"
-#while [ $(kubectl get service grafana -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }'| wc -m) = '0' ]; do { printf .; sleep 1; } done
-#export IP_GRAFANA=$(kubectl get service grafana -n istio-system -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
-#echo " IP_externo GRAFANA OK"
 
 #echo ""
 # Acesso ao Kiali
-echo "Acessar Istio Kiali: http://$IP/kiali"
+echo " Acessar Istio Kiali: http://kiali.$INGRESS_DOMAIN"
 echo ""
 # Acesso ao Grafana
-echo "Acessar Grafana: http://$IP/grafana"
+echo " Acessar Grafana: http://grafana.$INGRESS_DOMAIN"
 echo ""
