@@ -10,12 +10,11 @@ sudo chown -R 1001:1001 /tmp/wordpress-vol
 sudo chown -R 1001:1001 /tmp/mariadb-vol
 
 #node01
-ssh node01
-mkdir /tmp/wordpress-vol
-mkdir /tmp/mariadb-vol
-sudo chown -R 1001:1001 /tmp/wordpress-vol
-sudo chown -R 1001:1001 /tmp/mariadb-vol
-exit
+ssh node01 'mkdir /tmp/wordpress-vol'
+ssh node01 'mkdir /tmp/mariadb-vol'
+ssh node01 'sudo chown -R 1001:1001 /tmp/wordpress-vol'
+ssh node01 'sudo chown -R 1001:1001 /tmp/mariadb-vol'
+
 
 ### WORDPRESS 
 
