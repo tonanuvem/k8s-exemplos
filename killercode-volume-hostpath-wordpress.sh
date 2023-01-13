@@ -41,21 +41,21 @@ spec:
 EOF
 
 # Criando PVC
-kubectl apply -f - <<EOF
+#kubectl apply -f - <<EOF
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wordpress #changed
-spec:
-  storageClassName: manual #important
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi #changed
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: wordpress #changed
+#spec:
+#  storageClassName: manual #important
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 100Mi #changed
 
-EOF
+#EOF
 
 
 ### BANCO DE DADOS: MARIA-DB
