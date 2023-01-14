@@ -103,5 +103,4 @@ helm install wordpress azure-marketplace/wordpress
 kubectl patch pvc wordpress -p  '{"spec": {"storageClassName": "manual"}}'
 kubectl get pv
 kubectl get pvc
-kubuctl describe pvc wordpress
 kubectl get pod
