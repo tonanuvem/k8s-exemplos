@@ -32,7 +32,7 @@ metadata:
 spec:
   storageClassName: manual #make sure to include
   capacity:
-    storage: 100Mi #changed
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
@@ -100,4 +100,8 @@ EOF
 # Adicionando um Repositório:
 helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo && helm repo update
 helm install wordpress azure-marketplace/wordpress
+kubectl patch pvc wordpress -p  '{"spec": {"storageClassName": "manual"}}'
+kubectl get pv
+kubectl get pvc
+kubuctl describe pvc wordpress
 kubectl get pod
