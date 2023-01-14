@@ -5,14 +5,21 @@
 
 #controlplane
 mkdir /tmp/wordpress-vol
-mkdir /tmp/mariadb-vol
 sudo chown -R www-data:www-data /tmp/wordpress-vol
+sudo chmod 777 /tmp/wordpress-vol
+mkdir /tmp/wordpress-vol/var/www/html/wp-content/plugins
+mkdir /tmp/wordpress-vol/var/www/html/wp-content/uploads
+chown -R www-data:www-data /tmp/wordpress-vol/var/www
+find /tmp/wordpress-vol/var/www/ -type d -exec chmod 0755 {} \;
+find /tmp/wordpress-vol/var/www/ -type f -exec chmod 644 {} \;
+mkdir /tmp/mariadb-vol
 sudo chown -R 1001:1001 /tmp/mariadb-vol
 
 #node01
 ssh node01 'mkdir /tmp/wordpress-vol'
-ssh node01 'mkdir /tmp/mariadb-vol'
 ssh node01 'sudo chown -R www-data:www-data /tmp/wordpress-vol'
+ssh node01 'sudo chmod 777 /tmp/wordpress-vol'
+ssh node01 'mkdir /tmp/mariadb-vol'
 ssh node01 'sudo chown -R 1001:1001 /tmp/mariadb-vol'
 
 
