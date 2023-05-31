@@ -8,14 +8,15 @@ metadata:
   name: apigateway-dashboard
   namespace: kubernetes-dashboard
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /dashboard
+      - path: /dashboard(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -29,31 +30,17 @@ metadata:
   name: apigateway-weave
   namespace: weave
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /weave
+      - path: /weave(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: weave-scope-app
             port:
               number: 80
----
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: default-http-backend
-#  namespace: default
-#  annotations:
-#    nginx.ingress.kubernetes.io/rewrite-target: /
-#spec:
-#  ingressClassName: nginx
-#  defaultBackend:
-#    service:
-#      name: ingress-controller-nginx-ingress 
-#      port:
-#        number: 80
