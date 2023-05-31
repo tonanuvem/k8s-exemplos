@@ -12,12 +12,14 @@ spec:
   - http:
       paths:
       - path: /blue(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: blue
             port:
               number: 80
       - path: /green(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: green
