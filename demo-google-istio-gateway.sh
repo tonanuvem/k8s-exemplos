@@ -64,7 +64,9 @@ spec:
 ---
 EOF
 
-
+echo ""
+echo "Aguardando a execução da Solução"
+while [ $(kubectl get pod -n ecommerce | grep Running | wc -l) = '12' ]; do { printf .; sleep 1; } done
 echo ""
 echo "Acessar Demo: http://ecommerce.$INGRESS_DOMAIN"
 echo ""
