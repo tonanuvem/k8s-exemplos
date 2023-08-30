@@ -1,5 +1,5 @@
 # https://github.com/GoogleCloudPlatform/microservices-demo
-# mudanças: adicionado namespace 'ecommerce' e o tipo do service ja era 'LoadBalancer'
+# mudanças: adicionado namespace 'ecommerce' e o tipo do service 'NodePort'
 apiVersion: v1
 kind: Namespace
 metadata:
