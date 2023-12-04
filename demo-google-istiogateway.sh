@@ -11,7 +11,8 @@ echo "INGRESS_DOMAIN = $INGRESS_DOMAIN"
 
 kubectl create namespace ecommerce
 kubectl label namespace ecommerce istio-injection=enabled
-kubectl apply -f https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master/google-ecommerce-namespace.yml
+kubectl apply -f https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master/google-ecommerce-namespace_v.yml
+# kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
 
 # Utilizar o objeto Gateway (Ingress) para limitar o uso dos IPs publicos
 # https://istio.io/latest/docs/tasks/observability/gateways/#option-2-insecure-access-http
