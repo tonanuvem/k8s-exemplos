@@ -67,8 +67,14 @@ spec:
 EOF
 
 # Adicionando um Repositório:
-helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo && helm repo update
-helm install wordpress azure-marketplace/wordpress
+#helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo && helm repo update
+#helm install wordpress azure-marketplace/wordpress
+
+# Adicionando um Repositório:
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install wordpress bitnami/wordpress --version 19.3.0
+
 kubectl patch pvc wordpress -p  '{"spec": {"storageClassName": "manual"}}'
 kubectl get pv
 kubectl get pvc
