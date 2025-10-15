@@ -20,7 +20,7 @@ echo "INGRESS_DOMAIN = $INGRESS_DOMAIN"
 
 # 1. Apply the following configuration to expose Grafana:
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: grafana-gateway
@@ -36,7 +36,7 @@ spec:
     hosts:
     - "grafana.${INGRESS_DOMAIN}"
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: grafana-vs
@@ -53,7 +53,7 @@ spec:
         port:
           number: 3000
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: grafana
@@ -68,7 +68,7 @@ EOF
 
 # 2. Apply the following configuration to expose Kiali:
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: kiali-gateway
@@ -84,7 +84,7 @@ spec:
     hosts:
     - "kiali.${INGRESS_DOMAIN}"
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: kiali-vs
@@ -101,7 +101,7 @@ spec:
         port:
           number: 20001
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: kiali
@@ -116,7 +116,7 @@ EOF
 
 # 3. Apply the following configuration to expose Prometheus:
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: prometheus-gateway
@@ -132,7 +132,7 @@ spec:
     hosts:
     - "prometheus.${INGRESS_DOMAIN}"
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: prometheus-vs
@@ -149,7 +149,7 @@ spec:
         port:
           number: 9090
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: prometheus
@@ -164,7 +164,7 @@ EOF
 
 # 4. Apply the following configuration to expose the tracing service:
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: tracing-gateway
@@ -180,7 +180,7 @@ spec:
     hosts:
     - "tracing.${INGRESS_DOMAIN}"
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: tracing-vs
@@ -197,7 +197,7 @@ spec:
         port:
           number: 80
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: tracing
