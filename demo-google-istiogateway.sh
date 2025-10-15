@@ -20,7 +20,7 @@ kubectl apply -f https://raw.githubusercontent.com/tonanuvem/k8s-exemplos/master
 
 # 1. Apply the following configuration to expose E-COMMERCE:
 cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: ecommerce-gateway
@@ -36,7 +36,7 @@ spec:
     hosts:
     - "ecommerce.${INGRESS_DOMAIN}"
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: ecommerce-vs
@@ -53,7 +53,7 @@ spec:
         port:
           number: 80
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: ecommerce
