@@ -11,7 +11,12 @@ if [ "$APPARMOR_INDEX" != "null" ] && [ -n "$APPARMOR_INDEX" ]; then
     -p="[{\"op\":\"remove\",\"path\":\"/spec/kspm/mappedHostPaths/$APPARMOR_INDEX\"}]"
 fi
 
-# 2. Atualiza a imagem do ActiveGate para a versão homologada no ECR Public
+# 2. Reduzir o request de memória do ActiveGate do DynaKube
+kubectl patch dynakube kubernetes -n dynatrace --type=json \
+  -p='[{"op":"replace","path":"/spec/activeGate/resources/requests/memory","value":"1Gi"},
+       {"op":"replace","path":"/spec/activeGate/resources/limits/memory","value":"2Gi"}]'
+
+# 3. Atualiza a imagem do ActiveGate para a versão homologada no ECR Public
 AG_IMAGE="public.ecr.aws/dynatrace/dynatrace-activegate:1.349.80.20261105-202347"
 kubectl patch dynakube kubernetes -n dynatrace --type=json \
   -p="[{\"op\":\"replace\",\"path\":\"/spec/activeGate/image\",\"value\":\"$AG_IMAGE\"}]"
