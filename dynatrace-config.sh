@@ -2,15 +2,12 @@
 set -Eeuo pipefail
 
 NAMESPACE="dynatrace"
-DYNAKUBE_NAME="${DYNAKUBE_NAME:-kubernetes}"
 TIMEOUT=300
 
 AG_IMAGE="public.ecr.aws/dynatrace/dynatrace-activegate:1.349.80.20261105-202347"
-AG_STATEFULSET="${DYNAKUBE_NAME}-activegate"
 
 echo "=========================================="
 echo " Configuração Dynatrace"
-echo " DynaKube: $DYNAKUBE_NAME"
 echo " Namespace: $NAMESPACE"
 echo "=========================================="
 
@@ -23,23 +20,21 @@ kubectl wait \
   -n "$NAMESPACE" \
   --timeout="${TIMEOUT}s"
 
-# 2. Aguarda a criação do DynaKube
-echo "Aguardando criação do DynaKube $DYNAKUBE_NAME..."
+# 2. Identifica automaticamente o DynaKube principal
+DYNAKUBE_NAME=$(kubectl get dynakube -n "$NAMESPACE" \
+  -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' \
+  | grep -v -- '-agents$' \
+  | head -n 1)
 
-START=$SECONDS
+if [[ -z "$DYNAKUBE_NAME" ]]; then
+    echo "ERRO: Nenhum DynaKube principal encontrado em $NAMESPACE."
+    kubectl get dynakube -A || true
+    exit 1
+fi
 
-until kubectl get dynakube "$DYNAKUBE_NAME" -n "$NAMESPACE" >/dev/null 2>&1; do
-    if (( SECONDS - START >= TIMEOUT )); then
-        echo "ERRO: DynaKube $DYNAKUBE_NAME não foi criado após ${TIMEOUT}s."
-        echo "DynaKubes disponíveis:"
-        kubectl get dynakube -A || true
-        exit 1
-    fi
+echo "DynaKube identificado: $DYNAKUBE_NAME"
 
-    sleep 5
-done
-
-echo "DynaKube encontrado!"
+AG_STATEFULSET="${DYNAKUBE_NAME}-activegate"
 
 # 3. Remove o mount do AppArmor, caso exista
 echo "Verificando configuração AppArmor..."
