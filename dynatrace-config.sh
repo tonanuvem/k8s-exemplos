@@ -14,7 +14,8 @@
 #   2. a injeção de code module acontece no webhook, na CRIAÇÃO do pod, e não
 #      é retroativa: quem já estava rodando nunca recebe instrumentação;
 #   3. o assistente instala applicationMonitoring, não cloudNativeFullStack --
-#      sem a camada de host e processo no Smartscape;
+#      sem a camada de host e processo no Smartscape. Este script migra por
+#      padrão (FULLSTACK=true);
 #   4. ninguém verifica se o dado CHEGOU. Pod Ready não prova entrega: aqui
 #      foram 729 spans descartados com todos os pods saudáveis e nenhuma
 #      linha de erro na aplicação.
@@ -46,9 +47,17 @@ NAMESPACE="dynatrace"
 TIMEOUT=300
 AG_IMAGE="public.ecr.aws/dynatrace/dynatrace-activegate:1.349.80.20261105-202347"
 
-# Namespace da aplicação a reinjetar, e migração opcional para full-stack.
+# Namespace da aplicação a reinjetar.
 NS_APP="${NS_APP:-fiap-bank}"
-FULLSTACK="${FULLSTACK:-false}"
+
+# Full-stack LIGADO por padrão. O assistente de Auto Discovery instala
+# applicationMonitoring, que entrega o code module nos pods e nada mais: sem
+# entidade Host, sem métrica de nó, sem evento de OOM e sem a camada
+# processo->host do Smartscape -- justamente o que o roteiro promete mostrar.
+# Migrar sobe um DaemonSet de OneAgent (1 pod por nó) e REINICIA os pods da
+# aplicação, então rode isto ANTES de começar a contar a linha de base do
+# Davis. Para não migrar:  FULLSTACK=false
+FULLSTACK="${FULLSTACK:-true}"
 
 echo "=========================================="
 echo " Configuração Dynatrace"
@@ -188,7 +197,7 @@ if [[ -n "$DK_AGENTES" ]]; then
     fi
 
     # -------------------------------------------------------------------------
-    # 8. Full-stack, se pedido (FULLSTACK=true)
+    # 8. Full-stack (padrão; desligue com FULLSTACK=false)
     # -------------------------------------------------------------------------
     if [[ "$FULLSTACK" == "true" ]]; then
         MODO=$(kubectl get dynakube "$DK_AGENTES" -n "$NAMESPACE" \
@@ -201,6 +210,16 @@ if [[ -n "$DK_AGENTES" ]]; then
         else
             echo "oneAgent já não está em applicationMonitoring."
         fi
+    else
+        # Passo opcional que NAO avisava que foi pulado. Sem esta linha, o
+        # script roda inteiro, imprime sucesso e deixa o cluster sem OneAgent
+        # de host -- e nao ha nada no output que explique por que. Medido:
+        # "por que a config de full-stack nao entrou?" depois de uma execucao
+        # limpa. Tinha entrado; nunca foi pedida.
+        echo "Full-stack DESLIGADO por FULLSTACK=false: sem OneAgent de host."
+        echo "  Sem ele nao ha entidade Host, metrica de no, evento de OOM,"
+        echo "  nem a camada processo->host do Smartscape. Para ligar, rode"
+        echo "  sem a variavel -- o padrao deste script e' ligado."
     fi
 fi
 
