@@ -233,12 +233,35 @@ COLETOR=$(kubectl get statefulset -n "$NAMESPACE" -o name 2>/dev/null \
 if [[ -z "$COLETOR" ]]; then
     echo "Sem coletor OTLP (telemetryIngest desligado)."
 else
-    echo "Conferindo a entrega em $COLETOR (últimos 5 min)..."
-    DESCARTES=$(kubectl logs "$COLETOR" -n "$NAMESPACE" --since=5m 2>/dev/null \
-                | grep "Dropping data" | tail -2 || true)
+    # O passo 7 acabou de reiniciar este StatefulSet. Sem esperar o rollout,
+    # a leitura abaixo cai num pod que está morrendo ou nascendo, o log vem
+    # vazio, o grep não acha "Dropping data" -- e o script dava OK. Era um
+    # verde falso: ausência de log não é ausência de descarte.
+    echo "Aguardando o coletor ficar Ready..."
+    kubectl rollout status "$COLETOR" -n "$NAMESPACE" --timeout="${TIMEOUT}s" || true
 
-    if [[ -z "$DESCARTES" ]]; then
-        echo "  OK: nenhum descarte. O dado está chegando ao Dynatrace."
+    PRONTO=$(kubectl get "$COLETOR" -n "$NAMESPACE" \
+             -o jsonpath='{.status.readyReplicas}' 2>/dev/null || true)
+
+    echo "Conferindo a entrega em $COLETOR (últimos 5 min)..."
+    LOG=$(kubectl logs "$COLETOR" -n "$NAMESPACE" --since=5m 2>/dev/null || true)
+    LINHAS=$(printf '%s' "$LOG" | grep -c . || true)
+    DESCARTES=$(printf '%s\n' "$LOG" | grep "Dropping data" | tail -2 || true)
+
+    if [[ "${PRONTO:-0}" -lt 1 ]]; then
+        echo "  NÃO CONFIRMADO: o coletor não está Ready."
+        echo "  Enquanto ele não subir, telemetry-ingest:4317 está fora do ar"
+        echo "  e NADA de OTLP chega ao Dynatrace. Veja o motivo com:"
+        echo "    kubectl describe $COLETOR -n $NAMESPACE"
+        echo "    kubectl logs $COLETOR -n $NAMESPACE --previous"
+    elif [[ "${LINHAS:-0}" -eq 0 ]]; then
+        echo "  NÃO CONFIRMADO: o coletor está Ready, mas não escreveu nada"
+        echo "  nos últimos 5 min. Pode ser que ainda não tenha chegado"
+        echo "  telemetria -- suba a aplicação e rode a conferência de novo:"
+        echo "    kubectl logs $COLETOR -n $NAMESPACE --since=5m | grep 'Dropping data'"
+    elif [[ -z "$DESCARTES" ]]; then
+        echo "  OK: coletor Ready, $LINHAS linha(s) de log, nenhum descarte."
+        echo "  O dado está chegando ao Dynatrace."
     else
         echo "  ATENÇÃO: o coletor está DESCARTANDO dado."
         echo "$DESCARTES" \
